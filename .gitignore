@@ -1,0 +1,25 @@
+# Created by https://www.gitignore.io/api/django,vim,bower
+#
+# ### Django ###
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+#
+#
+# ### Vim ###
+[._]*.s[a-w][a-z]
+[._]s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+#
+#
+# ### Bower ###
+bower_components
+.bower-cache
+.bower-registry
+.bower-tmp
+#
