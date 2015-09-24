@@ -1,0 +1,18 @@
+        {% load bootstrap3 %}
+{% include 'playlist/header.html' %}
+
+        <div class="container">
+
+                <h1>New Logging Sheet</h1>
+
+<form action="/logger/new/" method="post">
+{% csrf_token %}
+                    {% bootstrap_form form %}
+<input type="submit" value="Let's Go!">
+</form>
+
+        </div>
+
+    </body>
+</html>
+

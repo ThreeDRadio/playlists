@@ -39,6 +39,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'datetimewidget',
     'bootstrap3',
+    'rest_framework',
+    'corsheaders',
     'playlist',
 )
 
@@ -85,6 +87,19 @@ DATABASES = {
         'PASSWORD': os.path.join('threedradio'),
     }
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}
+
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:4200'
+)
 
 
 # Internationalization

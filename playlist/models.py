@@ -30,6 +30,9 @@ class Cd(models.Model):
         managed = False
         db_table = 'cd'
 
+    def __unicode__(self):
+        return self.artist + " - " + self.title
+
 
 class Cdcomment(models.Model):
     cdid = models.BigIntegerField()
@@ -47,7 +50,7 @@ class Cdcomment(models.Model):
 
 class Cdtrack(models.Model):
     trackid = models.BigIntegerField(primary_key=True)
-    cdid = models.BigIntegerField()
+    cdid = models.ForeignKey(Cd, db_column='cdid', related_name="tracks")
     tracknum = models.BigIntegerField()
     tracktitle = models.CharField(max_length=200, blank=True, null=True)
     trackartist = models.CharField(max_length=200, blank=True, null=True)
@@ -73,6 +76,7 @@ class PlaylistEntry(models.Model):
 
     #quotas
     local = models.BooleanField()
+    australian = models.BooleanField()
     female = models.BooleanField()
     newRelease = models.BooleanField()
     

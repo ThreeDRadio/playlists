@@ -3,16 +3,24 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpRespons
 from django.template import RequestContext, loader
 from django.forms.models import modelformset_factory
 from .forms import NewPlaylistForm, EditPlaylistForm, PlaylistEntryForm
-from .models import Playlist, PlaylistEntry
+from .models import Playlist, PlaylistEntry, Cd, Cdtrack
 from django.contrib import messages
+import django_filters
+from rest_framework import filters
+from rest_framework import viewsets, status
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from serializers import ReleaseSerializer, TrackSerializer
 # Create your views here.
 
 def index(request):
-    form = NewPlaylistForm()
+    playlists = Playlist.objects.all()
     context = RequestContext(request, {
-        'form': form
+        'playlists': playlists 
         })
     return render(request, 'playlist/index.html', context)
+
 
 def new(request):
     if request.method == 'POST':
@@ -33,6 +41,12 @@ def new(request):
 
         else:
             return HttpResponseRedirect('/logger/')
+    else:
+        form = NewPlaylistForm()
+        context = RequestContext(request, {
+            'form': form
+        })
+        return render(request, 'playlist/new.html', context)
 
 
 
@@ -61,3 +75,49 @@ def edit(request, playlist_id):
             })
 
     return render(request, 'playlist/edit.html', context)
+
+
+###############
+
+class ReleaseViewSet(viewsets.ModelViewSet):
+    queryset = Cd.objects.all()
+    serializer_class = ReleaseSerializer
+    filter_backends = (filters.OrderingFilter,
+                       filters.SearchFilter,)
+    search_fields = ('artist','title','tracks__title')
+    ordering_fields = ('arrivaldate', 'artist', 'title')
+
+    @list_route()
+    def latest(self, request):
+        latestReleases = Release.objects.all().order_by('-arrivaldate')
+        
+        page = self.paginate_queryset(latestReleases)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(latestReleases, many=True)
+        return Response(serializer.data)
+
+class TrackViewSet(viewsets.ModelViewSet):
+    queryset = Cdtrack.objects.all()
+    serializer_class = TrackSerializer
+    filter_backends = (filters.OrderingFilter,
+                        filters.DjangoFilterBackend)
+
+    filter_fields = ('cdid__artist','tracktitle')
+    
+
+class ArtistViewSet(viewsets.ViewSet):
+
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('artist',)
+
+    def list(self, request):
+        searchParam = self.request.query_params.get('term')
+        if searchParam is None:
+            artists = [release.artist for release in Cd.objects.distinct('artist').order_by('artist')]
+        else:
+            artists = [release.artist for release in Cd.objects.distinct('artist').filter(artist__icontains = searchParam).order_by('artist')]
+
+        return Response(artists)
