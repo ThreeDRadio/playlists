@@ -59,10 +59,12 @@ class Cdtrack(models.Model):
 
 class Playlist(models.Model):
     show = models.CharField(max_length=200)
+    host = models.CharField(max_length=200)
     date = models.DateField()
     complete = models.BooleanField(default=False)
 
 class PlaylistEntry(models.Model):
+    playlist = models.ForeignKey(Playlist)
     # text entry
     artist = models.CharField(max_length=200, blank=True, null=True)
     album = models.CharField(max_length=200, blank=True, null=True)
@@ -75,4 +77,4 @@ class PlaylistEntry(models.Model):
     newRelease = models.BooleanField()
     
     #found in catalogue
-    catalogueEntry = models.ForeignKey(Cdtrack)
+    catalogueEntry = models.ForeignKey(Cdtrack, null=True)

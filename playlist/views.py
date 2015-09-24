@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpResponseNotFound
 from django.template import RequestContext, loader
-
-from .forms import NewPlaylistForm 
-from .models import Playlist
+from django.forms.models import modelformset_factory
+from .forms import NewPlaylistForm, EditPlaylistForm, PlaylistEntryForm
+from .models import Playlist, PlaylistEntry
 # Create your views here.
 
 def index(request):
@@ -18,11 +18,13 @@ def new(request):
         form = NewPlaylistForm(request.POST)
         if form.is_valid():
             showName = form.cleaned_data['showName'];
+            host = form.cleaned_data['host'];
             date = form.cleaned_data['date'];
             
             playlist = Playlist()
             playlist.show = showName
             playlist.date = date
+            playlist.host = host
 
             playlist.save()
 
@@ -38,4 +40,23 @@ def new(request):
     return HttpResponse("new form")
 
 def edit(request, playlist_id):
-    return HttpResponse("edit form")
+    playlist = Playlist.objects.get(pk=playlist_id)
+
+    tracks = PlaylistEntry.objects.filter(playlist=playlist)
+    EntryFormSet = modelformset_factory(PlaylistEntry, extra=60, form=PlaylistEntryForm)
+    formset = EntryFormSet(initial=tracks)
+
+    if request.method == 'POST':
+        formset = EntryFormSet(request.POST)
+        if formset.is_valid():
+            playlistEntries = formset.save(commit=False)
+            for entry in playlistEntries:
+                entry.playlist = playlist
+                entry.save()
+
+    context = RequestContext(request, {
+            'playlist' : playlist,
+            'formset' : formset,
+            })
+
+    return render(request, 'playlist/edit.html', context)
