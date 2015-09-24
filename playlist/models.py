@@ -69,7 +69,7 @@ class PlaylistEntry(models.Model):
     artist = models.CharField(max_length=200, blank=True, null=True)
     album = models.CharField(max_length=200, blank=True, null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
-    duration = models.DurationField();
+    duration = models.DurationField(blank=True);
 
     #quotas
     local = models.BooleanField()

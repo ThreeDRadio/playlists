@@ -4,6 +4,7 @@ from django.template import RequestContext, loader
 from django.forms.models import modelformset_factory
 from .forms import NewPlaylistForm, EditPlaylistForm, PlaylistEntryForm
 from .models import Playlist, PlaylistEntry
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -42,17 +43,17 @@ def new(request):
 def edit(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
 
-    tracks = PlaylistEntry.objects.filter(playlist=playlist)
+    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).values()
     EntryFormSet = modelformset_factory(PlaylistEntry, extra=60, form=PlaylistEntryForm)
-    formset = EntryFormSet(initial=tracks)
+    formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
 
     if request.method == 'POST':
         formset = EntryFormSet(request.POST)
-        if formset.is_valid():
-            playlistEntries = formset.save(commit=False)
-            for entry in playlistEntries:
-                entry.playlist = playlist
-                entry.save()
+        playlistEntries = formset.save(commit=False)
+        for entry in playlistEntries:
+            entry.playlist = playlist
+            entry.save()
+        messages.success(request, 'Playlist saved.')
 
     context = RequestContext(request, {
             'playlist' : playlist,
