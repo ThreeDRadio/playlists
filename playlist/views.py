@@ -67,6 +67,8 @@ def edit(request, playlist_id):
         for entry in playlistEntries:
             entry.playlist = playlist
             entry.save()
+
+        formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
         messages.success(request, 'Playlist saved.')
 
     context = RequestContext(request, {
@@ -105,7 +107,7 @@ class TrackViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter,
                         filters.DjangoFilterBackend)
 
-    filter_fields = ('cdid__artist','tracktitle')
+    filter_fields = ('album__artist','tracktitle')
     
 
 class ArtistViewSet(viewsets.ViewSet):
