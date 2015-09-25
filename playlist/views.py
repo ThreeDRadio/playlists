@@ -113,13 +113,20 @@ class ReleaseViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(latestReleases, many=True)
         return Response(serializer.data)
 
+
+
+class TrackFilter(django_filters.FilterSet):
+    artist = django_filters.CharFilter(name="album__artist", lookup_type='icontains')
+    track  = django_filters.CharFilter(name="tracktitle", lookup_type='icontains')
+    class Meta:
+        model = Cdtrack
+        fields = ['track','artist']
+
 class TrackViewSet(viewsets.ModelViewSet):
     queryset = Cdtrack.objects.all()
     serializer_class = TrackSerializer
-    filter_backends = (filters.OrderingFilter,
-                        filters.DjangoFilterBackend)
-
-    filter_fields = ('album__artist','tracktitle')
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = TrackFilter
     
 
 class ArtistViewSet(viewsets.ViewSet):

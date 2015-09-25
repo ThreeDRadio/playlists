@@ -7,6 +7,15 @@ var artists = new Bloodhound({
   }
 });
 
+var tracks = new Bloodhound({
+  datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
+  queryTokenizer: Bloodhound.tokenizers.whitespace,
+  remote: {
+    url: '/api/tracks/?format=json&term=%QUERY',
+    wildcard: '%QUERY'
+  }
+});
+
 
 $('.typeahead-artist').each(function() {
     $(this).typeahead(null, {
@@ -17,8 +26,12 @@ $('.typeahead-artist').each(function() {
 
 
 $('.typeahead-track').each(function() {
-    console.log($(this));
+    $(this).typeahead(null, {
+        name: 'tracks',
+        source: tracks 
 });
+});
+
 
 $(document).ready(function() {
   $(window).keydown(function(event){
