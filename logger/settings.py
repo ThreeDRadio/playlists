@@ -27,6 +27,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BOWER_INSTALLED_APPS = {
+        'typeahead.js',
+
+        }
 
 # Application definition
 
@@ -39,6 +43,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'datetimewidget',
     'bootstrap3',
+    'djangobower',
     'rest_framework',
     'corsheaders',
     'playlist',
@@ -120,3 +125,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_FINDERS = {
+        'django.contrib.staticfiles.finders.FileSystemFinder',
+            'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        'djangobower.finders.BowerFinder',
+}
+BOWER_COMPONENTS_ROOT='/Users/michael/code/ThreeD/logger/components'

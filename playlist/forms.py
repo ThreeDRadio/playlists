@@ -20,8 +20,8 @@ class PlaylistEntryForm(forms.ModelForm):
         model = PlaylistEntry
         exclude = {'playlist', 'catalogueEntry'}
         widgets = {
-            'artist': TextInput(attrs={'placeholder': 'Artist', 'class':"form-control input-sm"}),
-            'title': TextInput(attrs={'placeholder': 'Track', 'class':"form-control input-sm"}),
+            'artist': TextInput(attrs={'placeholder': 'Artist', 'class':"form-control input-sm typeahead-artist"}),
+            'title': TextInput(attrs={'placeholder': 'Track', 'class':"form-control input-sm typeahead-track"}),
             'album': TextInput(attrs={'placeholder': 'Album', 'class':"form-control input-sm"}),
             'duration': TextInput(attrs={'placeholder': 'mm:ss', 'class':"form-control input-sm", 'style':'width: 60px;'}),
         }

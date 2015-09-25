@@ -38,7 +38,7 @@ def new(request):
 
             playlist.save()
 
-            return HttpResponseRedirect('/logger/' + str(playlist.id) + '/')
+            return HttpResponseRedirect('/logger/' + str(playlist.id) + '/edit/')
 
         else:
             return HttpResponseRedirect('/logger/')
