@@ -8,11 +8,14 @@
         <title>Three D Logging</title>
 
         <!-- Bootstrap -->
+        {% load staticfiles %}
         {% load bootstrap3 %}
         {% bootstrap_css %}
         <script src="{% bootstrap_jquery_url %}"></script>
         {% bootstrap_javascript %}
         {{ form.media }}
+        <link rel="stylesheet" href="{% static "css/print.css" %}" />
+        <link rel="stylesheet" href="{% static "css/custom.css" %}" />
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -25,7 +28,7 @@
         {# Display django.contrib.messages as Bootstrap alerts #}
         {% bootstrap_messages %}
 
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-inverse hidden-print">
  <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">

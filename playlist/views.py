@@ -12,6 +12,7 @@ from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from serializers import ReleaseSerializer, TrackSerializer
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 def index(request):
@@ -48,11 +49,22 @@ def new(request):
         })
         return render(request, 'playlist/new.html', context)
 
-
-
-
-
     return HttpResponse("new form")
+
+def show(request, playlist_id):
+    playlist = get_object_or_404(Playlist, pk=playlist_id)
+
+    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).values()
+
+    context = RequestContext(request, {
+            'playlist' : playlist,
+            'tracks' : tracks,
+            })
+
+    if request.method == 'GET':
+        if request.GET.get('format') == 'text':
+            return render(request, 'playlist/textview.html', context)
+    return render(request, 'playlist/view.html', context)
 
 def edit(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)

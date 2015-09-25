@@ -7,15 +7,29 @@
 
                 {% for playlist in playlists %}
 
-<div class="panel panel-default">
-  <div class="panel-body">
-                <h4>{{playlist.show}} <small> {{playlist.date}}</small></h4>
-                </div></div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="pull-right">
+                            <ul class="nav nav-pills">
+                                <li role="presentation"><a href="/logger/{{playlist.id}}" role="button">View Tracks</a></li>
+                                <li role="presentation"><a href="/logger/{{playlist.id}}/edit" role="button">Edit Playlist</a></li>
+                                <li role="presentation" class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                    Export<span class="caret"></span>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/logger/{{playlist.id}}?format=text" role="button">List</a></li>
+                                        <li><a href="/logger/{{playlist.id}}?format=csv" role="button">CSV</a></li>
+                                    </ul>
+                                </ul>
+                            </div>
+                            <h4>{{playlist.show}} <small> {{playlist.date}}</small></h4>
 
-                {% endfor %}
+                    </div></div>
 
-        </div>
+                    {% endfor %}
 
-    </body>
-</html>
+                </div>
+
+            </body>
+        </html>
 
