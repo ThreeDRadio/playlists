@@ -5,7 +5,7 @@
 
             <h1>Logging Sheet: {{ playlist.show }} <small>{{ playlist.date }} </small></h1>
 
-            <form action="/logger/{{ playlist.pk }}/" method="post">
+            <form action="/logger/{{ playlist.pk }}/edit/" method="post">
 {% csrf_token %}
 {{ formset.management_form }}
 
