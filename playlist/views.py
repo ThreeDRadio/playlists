@@ -17,6 +17,8 @@ from django.shortcuts import get_object_or_404
 
 def index(request):
     playlists = Playlist.objects.all()
+    if request.GET.get('saved') == 'true':
+        messages.success(request, 'Playlist Submitted.')
     context = RequestContext(request, {
         'playlists': playlists 
         })
@@ -79,6 +81,11 @@ def edit(request, playlist_id):
         for entry in playlistEntries:
             entry.playlist = playlist
             entry.save()
+
+        if request.POST.get('final') :
+            playlist.complete = True
+            playlist.save()
+            return HttpResponseRedirect('/logger/?saved=true')
 
         formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
         messages.success(request, 'Playlist saved.')
