@@ -30,6 +30,50 @@ $('.typeahead-artist').each(function() {
 });
 });
 
+var localCount = 0;
+var ausCount = 0;
+var femaleCount = 0;
+
+$('.local_check').each(function() {
+    if ($(this).is(':checked'))
+        localCount++;
+    $(this).click(function() {
+        if ($(this).is(':checked'))
+            localCount++;
+        else
+            localCount--;
+        $('#local_quota').html(localCount);
+    });
+    $('#local_quota').html(localCount);
+});
+
+$('.australian_check').each(function() {
+    if ($(this).is(':checked'))
+        ausCount++;
+    $(this).click(function() {
+        if ($(this).is(':checked'))
+            ausCount++;
+        else
+            ausCount--;
+        $('#aus_quota').html(ausCount);
+    });
+    $('#aus_quota').html(ausCount);
+});
+
+$('.female_check').each(function() {
+    if ($(this).is(':checked'))
+        femaleCount++;
+    $(this).click(function() {
+        if ($(this).is(':checked'))
+            femaleCount++;
+        else
+            femaleCount--;
+        $('#female_quota').html(femaleCount);
+    });
+    $('#female_quota').html(femaleCount);
+});
+
+
 
 $('.typeahead-track').each(function() {
     console.log($(this)[0].id);

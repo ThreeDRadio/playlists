@@ -1,7 +1,7 @@
 from django import forms
 from datetimewidget.widgets import DateWidget
 from django.forms import ModelForm
-from django.forms.widgets import TextInput
+from django.forms.widgets import TextInput, CheckboxInput
 
 from .models import PlaylistEntry
 
@@ -24,4 +24,7 @@ class PlaylistEntryForm(forms.ModelForm):
             'title': TextInput(attrs={'placeholder': 'Track', 'class':"form-control input-sm typeahead-track"}),
             'album': TextInput(attrs={'placeholder': 'Album', 'class':"form-control input-sm"}),
             'duration': TextInput(attrs={'placeholder': 'mm:ss', 'class':"form-control input-sm", 'style':'width: 60px;'}),
+            'local': CheckboxInput(attrs={'class':"local_check",}),
+            'australian': CheckboxInput(attrs={'class':"australian_check",}),
+            'female': CheckboxInput(attrs={'class':"female_check",}),
         }
