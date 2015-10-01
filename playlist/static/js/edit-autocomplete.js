@@ -1,3 +1,8 @@
+var trackCount = 0;
+var localCount = 0;
+var ausCount = 0;
+var femaleCount = 0;
+
 var artists = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
@@ -30,9 +35,22 @@ $('.typeahead-artist').each(function() {
 });
 });
 
-var localCount = 0;
-var ausCount = 0;
-var femaleCount = 0;
+$('.typeahead-track').each(function() {
+    if ($(this).val() == "") {
+
+    }
+    else {
+        trackCount++;
+    }
+    console.log($(this)[0].id);
+    $(this).typeahead(null, {
+        name: 'tracks',
+        source: tracks ,
+        display: function(suggestion) {
+            return suggestion.tracktitle;
+        }
+});
+});
 
 $('.local_check').each(function() {
     if ($(this).is(':checked'))
@@ -42,9 +60,9 @@ $('.local_check').each(function() {
             localCount++;
         else
             localCount--;
-        $('#local_quota').html(localCount);
+        $('#local_quota').html("" + localCount + "/" + trackCount);
     });
-    $('#local_quota').html(localCount);
+    $('#local_quota').html("" + localCount + "/" + trackCount);
 });
 
 $('.australian_check').each(function() {
@@ -75,16 +93,6 @@ $('.female_check').each(function() {
 
 
 
-$('.typeahead-track').each(function() {
-    console.log($(this)[0].id);
-    $(this).typeahead(null, {
-        name: 'tracks',
-        source: tracks ,
-        display: function(suggestion) {
-            return suggestion.tracktitle;
-        }
-});
-});
 
 
 // Prevent return key from submitting form
