@@ -7,7 +7,7 @@ var artists = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
-    url: '/api/artists/?format=json&term=%QUERY',
+    url: '/logger/api/artists/?format=json&term=%QUERY',
     wildcard: '%QUERY',
     rateLimitBy: 100,
   }
@@ -17,7 +17,7 @@ var tracks = new Bloodhound({
   datumTokenizer: Bloodhound.tokenizers.obj.whitespace('value'),
   queryTokenizer: Bloodhound.tokenizers.whitespace,
   remote: {
-    url: '/api/tracks/?format=json&track=%QUERY',
+    url: '/logger/api/tracks/?format=json&track=%QUERY',
     wildcard: '%QUERY',
     rateLimitBy: 100,
     transform: function(result) {

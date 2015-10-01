@@ -26,5 +26,5 @@ router.register(r'artists', views.ArtistViewSet, 'Artist')
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^api/', include(router.urls)),
-    url(r'^logger/', include('playlist.urls')),
+    url(r'^', include('playlist.urls')),
 ]
