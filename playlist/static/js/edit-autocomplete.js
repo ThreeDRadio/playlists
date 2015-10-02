@@ -105,3 +105,7 @@ $(document).ready(function() {
   });
 });
 
+
+$('.floathead').floatThead({
+    position: 'fixed'
+});

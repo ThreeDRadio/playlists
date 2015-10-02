@@ -42,3 +42,7 @@ span.twitter-typeahead {
 .tt-suggestion p {
   margin: 0;
 }
+
+th {
+    background-color: #fff;
+}

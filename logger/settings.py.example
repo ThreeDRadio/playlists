@@ -28,9 +28,9 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 BOWER_INSTALLED_APPS = {
-        'typeahead.js',
-
-        }
+    'typeahead.js',
+    'floatThead',
+}
 
 # Application definition
 
