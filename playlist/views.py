@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from serializers import ReleaseSerializer, TrackSerializer
 from django.shortcuts import get_object_or_404
+import csv
 # Create your views here.
 
 def index(request):
@@ -23,6 +24,21 @@ def index(request):
         'playlists': playlists 
         })
     return render(request, 'playlist/index.html', context)
+
+
+def summary(request):
+    playlists = Playlist.objects.all();
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
+
+    out = csv.writer(response)
+    out.writerow(['show','date','artist','track','album','local','australian','female','new release'])
+
+    for playlist in playlists:
+        for track in playlist.playlistentry_set.all():
+            out.writerow([playlist.show,playlist.date,track.artist,track.title,track.album,track.local,track.australian,track.female,track.newRelease])
+
+    return response
 
 
 def new(request):
