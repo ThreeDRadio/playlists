@@ -82,6 +82,17 @@ def show(request, playlist_id):
     if request.method == 'GET':
         if request.GET.get('format') == 'text':
             return render(request, 'playlist/textview.html', context)
+
+        elif request.GET.get('format') == 'csv':
+            response = HttpResponse(content_type='text/csv')
+            response['Content-Disposition'] = 'attachment; filename="' + playlist.show + '-' + playlist.date.isoformat() + '.csv"'
+
+            out = csv.writer(response)
+            out.writerow(['artist','track','album','local','australian','female','new release'])
+
+            for track in playlist.playlistentry_set.all():
+                out.writerow([track.artist,track.title,track.album,track.local,track.australian,track.female,track.newRelease])
+            return response
     return render(request, 'playlist/view.html', context)
 
 def edit(request, playlist_id):
