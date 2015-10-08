@@ -70,6 +70,7 @@ class Playlist(models.Model):
     show = models.CharField(max_length=200)
     host = models.CharField(max_length=200)
     date = models.DateField()
+    notes = models.TextField(blank=True)
     complete = models.BooleanField(default=False)
 
 class PlaylistEntry(models.Model):
