@@ -60,6 +60,12 @@ class Cdtrack(models.Model):
         managed = False
         db_table = 'cdtrack'
 
+class Show(models.Model):
+    show = models.CharField(max_length=200)
+    defaultHost = models.CharField(max_length=200, blank=True)
+    startTime = models.TimeField();
+    endTime = models.TimeField();
+
 class Playlist(models.Model):
     show = models.CharField(max_length=200)
     host = models.CharField(max_length=200)
