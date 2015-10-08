@@ -1,6 +1,6 @@
-{{playlist.show}} - {{playlist.date}}
+{% autoescape off %}{{playlist.show}} - {{playlist.date}}
 
 {{playlist.notes}}
 
 {% for entryform in tracks %}{{ entryform.artist }} - {{ entryform.title }}
-{% endfor %}
+{% endfor %}{% endautoescape %}

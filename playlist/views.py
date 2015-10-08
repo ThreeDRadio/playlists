@@ -84,7 +84,7 @@ def show(request, playlist_id):
     if request.method == 'GET':
         if request.GET.get('format') == 'text':
             response = render(request, 'playlist/textview.html', context)
-            response['Content-Type'] = 'text/plain'
+            response['Content-Type'] = 'text/plain; charset=utf-8'
             return response
 
 
