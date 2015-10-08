@@ -17,7 +17,7 @@ import csv
 # Create your views here.
 
 def index(request):
-    playlists = Playlist.objects.all()
+    playlists = Playlist.objects.order_by('-pk')
     if request.GET.get('saved') == 'true':
         messages.success(request, 'Playlist Submitted.')
     context = RequestContext(request, {
@@ -72,7 +72,7 @@ def new(request):
 def show(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
-    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).values()
+    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).order_by("pk").values()
 
     context = RequestContext(request, {
             'playlist' : playlist,
