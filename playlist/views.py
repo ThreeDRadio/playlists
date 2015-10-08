@@ -48,11 +48,13 @@ def new(request):
             showName = form.cleaned_data['showName'];
             host = form.cleaned_data['host'];
             date = form.cleaned_data['date'];
+            notes = form.cleaned_data['notes'];
             
             playlist = Playlist()
             playlist.show = showName
             playlist.date = date
             playlist.host = host
+            playlist.notes = notes 
 
             playlist.save()
 
@@ -81,7 +83,10 @@ def show(request, playlist_id):
 
     if request.method == 'GET':
         if request.GET.get('format') == 'text':
-            return render(request, 'playlist/textview.html', context)
+            response = render(request, 'playlist/textview.html', context)
+            response['Content-Type'] = 'text/plain'
+            return response
+
 
         elif request.GET.get('format') == 'csv':
             response = HttpResponse(content_type='text/csv')

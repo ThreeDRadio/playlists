@@ -1,7 +1,7 @@
 from django import forms
 from datetimewidget.widgets import DateWidget
 from django.forms import ModelForm
-from django.forms.widgets import TextInput, CheckboxInput
+from django.forms.widgets import TextInput, CheckboxInput, Textarea
 
 from .models import PlaylistEntry
 
@@ -10,6 +10,7 @@ class NewPlaylistForm(forms.Form):
     showName = forms.CharField(label="Show Name", max_length="200")
     host = forms.CharField(label="Hosts", max_length="200")
     date = forms.DateField(label="Date", widget = DateWidget(usel10n=True, bootstrap_version=3))
+    notes = forms.CharField(widget = Textarea)
 
 class EditPlaylistForm(forms.Form):
     pass
