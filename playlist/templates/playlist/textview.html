@@ -1,3 +1,6 @@
-{% for entryform in tracks %}
-{{ entryform.artist }} - {{ entryform.title }} <br>
+{{playlist.show}} - {{playlist.date}}
+
+{{playlist.notes}}
+
+{% for entryform in tracks %}{{ entryform.artist }} - {{ entryform.title }}
 {% endfor %}
