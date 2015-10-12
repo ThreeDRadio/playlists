@@ -74,7 +74,7 @@ def new(request):
 def show(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
-    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).order_by("pk").values()
+    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).order_by("pk")
 
     context = RequestContext(request, {
             'playlist' : playlist,

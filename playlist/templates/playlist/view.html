@@ -1,3 +1,4 @@
+{% load time_delta %}
 {% include 'playlist/header.html' %}
 
         <div class="container">
@@ -21,7 +22,7 @@
                         <td>{{ entryform.artist }}</td>
                         <td>{{ entryform.title }}</td>
                         <td>{{ entryform.album }}</td>
-                        <td>{{ entryform.duration }}</td>
+                        <td>{{ entryform.duration|time_delta }}</td>
                         <td>{% if entryform.local %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% endif %} </td>
                         <td>{% if entryform.australian %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% endif %} </td>
                         <td>{% if entryform.female %}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{% endif %} </td>
