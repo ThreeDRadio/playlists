@@ -1,3 +1,4 @@
+        {% load bootstrap3 %}
 {% load time_delta %}
         {% load staticfiles %}
 {% include 'playlist/header.html' %}
@@ -54,16 +55,20 @@ Submit Logging Sheet
 
  {% for entryform in formset %}
  {{ entryform.id }}
-    <tr>
+ {% if entryform.errors %}
+    <tr class="danger">
+ {% else %}
+    <tr >
+ {% endif %}
         <td>{{ forloop.counter }}</td>
-        <td>{{ entryform.artist }}</td>
-        <td>{{ entryform.title }}</td>
-        <td>{{ entryform.album }}</td>
-        <td>{{ entryform.duration }}</td>
-        <td>{{ entryform.local }}</td>
-        <td>{{ entryform.australian }}</td>
-        <td>{{ entryform.female }}</td>
-        <td>{{ entryform.newRelease }}</td>
+        <td><div class="{{ entryform.artist.css_classes }}">{{ entryform.artist }}</div></td>
+        <td><div class="{{ entryform.title.css_classes }}">{{ entryform.title }}</div></td>
+        <td><div class="{{ entryform.album.css_classes }}">{{ entryform.album }}</div></td>
+        <td><div class="{{ entryform.duration.css_classes }}">{{ entryform.duration }}</div></td>
+        <td><div class="{{ entryform.local.css_classes }}">{{ entryform.local }}</div></td>
+        <td><div class="{{ entryform.australian.css_classes }}">{{ entryform.australian }}</div></td>
+        <td><div class="{{ entryform.female.css_classes }}">{{ entryform.female }}</div></td>
+        <td><div class="{{ entryform.newRelase.css_classes }}">{{ entryform.newRelease }}</div></td>
     </tr>
 
  {% endfor %}

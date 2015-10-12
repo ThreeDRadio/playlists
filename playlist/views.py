@@ -109,15 +109,25 @@ def edit(request, playlist_id):
 
     if request.method == 'POST':
         formset = EntryFormSet(request.POST)
-        playlistEntries = formset.save(commit=False)
-        for entry in playlistEntries:
-            entry.playlist = playlist
-            entry.save()
+        if formset.is_valid():
+            playlistEntries = formset.save(commit=False)
+            for entry in playlistEntries:
+                entry.playlist = playlist
+                entry.save()
 
-        if request.POST.get('final') :
-            playlist.complete = True
-            playlist.save()
-            return HttpResponseRedirect('/logger/?saved=true')
+            if request.POST.get('final') :
+                playlist.complete = True
+                playlist.save()
+                return HttpResponseRedirect('/logger/?saved=true')
+        else:
+            messages.error(request, 'You have invalid data in your logging sheet. Please fix the problems and try saving again..')
+            context = RequestContext(request, {
+                'playlist' : playlist,
+                'formset' : formset,
+            })
+
+            return render(request, 'playlist/edit.html', context)
+
 
         formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
         messages.success(request, 'Playlist saved.')

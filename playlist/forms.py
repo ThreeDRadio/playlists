@@ -35,6 +35,7 @@ class EditPlaylistForm(forms.Form):
 
 class PlaylistEntryForm(forms.ModelForm):
     duration = ShortDurationField(widget=TextInput(attrs={'placeholder': 'mm:ss', 'class':"form-control input-sm", 'style':'width: 60px;'}),)
+    error_css_class = 'has-error'
     class Meta:
         model = PlaylistEntry
         exclude = {'playlist', 'catalogueEntry'}
