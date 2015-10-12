@@ -77,9 +77,9 @@ class Playlist(models.Model):
 class PlaylistEntry(models.Model):
     playlist = models.ForeignKey(Playlist)
     # text entry
-    artist = models.CharField(max_length=200, blank=True, null=True)
-    album = models.CharField(max_length=200, blank=True, null=True)
-    title = models.CharField(max_length=200, blank=True, null=True)
+    artist = models.CharField(max_length=200, blank=False, null=False)
+    album = models.CharField(max_length=200, blank=False, null=False)
+    title = models.CharField(max_length=200, blank=False, null=False)
     duration = models.DurationField(blank=True, null=True, default=timedelta());
 
     #quotas
