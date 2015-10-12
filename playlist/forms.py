@@ -22,6 +22,10 @@ class ShortDurationField(forms.DurationField):
             # In case something went wrong
             return super(forms.DurationField, self).prepare_value(value)
 
+    def clean(self, value):
+        if value is None or value == '':
+            return '0'
+        return super(forms.DurationField, self).clean(value)
 
 class NewPlaylistForm(forms.Form):
     showName = forms.CharField(label="Show Name", max_length="200")

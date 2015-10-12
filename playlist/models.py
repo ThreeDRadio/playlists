@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import timedelta
 
 # Create your models here.
 
@@ -79,7 +80,7 @@ class PlaylistEntry(models.Model):
     artist = models.CharField(max_length=200, blank=True, null=True)
     album = models.CharField(max_length=200, blank=True, null=True)
     title = models.CharField(max_length=200, blank=True, null=True)
-    duration = models.DurationField(blank=True);
+    duration = models.DurationField(blank=True, null=True, default=timedelta());
 
     #quotas
     local = models.BooleanField()
