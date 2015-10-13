@@ -8,7 +8,12 @@ class PlaylistEntryInline(admin.TabularInline):
     exclude = ['catalogueEntry']
     model = PlaylistEntry 
 
+class PlaylistEntryAdmin(admin.ModelAdmin):
+    model = PlaylistEntry 
+    exclude = ['catalogueEntry']
+
 class PlaylistAdmin(admin.ModelAdmin):
     inlines = [PlaylistEntryInline]
 
 admin.site.register(Playlist, PlaylistAdmin)
+admin.site.register(PlaylistEntry, PlaylistEntryAdmin)
