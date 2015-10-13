@@ -74,6 +74,9 @@ class Playlist(models.Model):
     notes = models.TextField(blank=True, null=True)
     complete = models.BooleanField(default=False)
 
+    def __unicode__(self):
+        return self.show + ' - ' + str(self.date)
+
 class PlaylistEntry(models.Model):
     playlist = models.ForeignKey(Playlist)
     # text entry
@@ -90,3 +93,6 @@ class PlaylistEntry(models.Model):
     
     #found in catalogue
     catalogueEntry = models.ForeignKey(Cdtrack, null=True)
+
+    def __unicode__(self):
+        return '(' + self.playlist.show + ') ' + self.artist + " - " + self.title
