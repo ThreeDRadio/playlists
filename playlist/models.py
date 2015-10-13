@@ -28,7 +28,6 @@ class Cd(models.Model):
     format = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'cd'
 
     def __unicode__(self):
@@ -45,7 +44,6 @@ class Cdcomment(models.Model):
     modifywhen = models.BigIntegerField()
 
     class Meta:
-        managed = False
         db_table = 'cdcomment'
 
 
@@ -58,7 +56,6 @@ class Cdtrack(models.Model):
     tracklength = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'cdtrack'
 
 class Show(models.Model):
@@ -73,6 +70,9 @@ class Playlist(models.Model):
     date = models.DateField()
     notes = models.TextField(blank=True, null=True)
     complete = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.show + ' - ' + str(self.date)
 
 class PlaylistEntry(models.Model):
     playlist = models.ForeignKey(Playlist)
@@ -90,3 +90,6 @@ class PlaylistEntry(models.Model):
     
     #found in catalogue
     catalogueEntry = models.ForeignKey(Cdtrack, null=True)
+
+    def __unicode__(self):
+        return '(' + self.playlist.show + ') ' + self.artist + " - " + self.title
