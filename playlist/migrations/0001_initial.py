@@ -36,7 +36,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'cd',
-                'managed': False,
             },
         ),
         migrations.CreateModel(
@@ -53,7 +52,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'cdcomment',
-                'managed': False,
             },
         ),
         migrations.CreateModel(
@@ -68,7 +66,6 @@ class Migration(migrations.Migration):
             ],
             options={
                 'db_table': 'cdtrack',
-                'managed': False,
             },
         ),
         migrations.CreateModel(

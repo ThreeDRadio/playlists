@@ -28,7 +28,6 @@ class Cd(models.Model):
     format = models.SmallIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'cd'
 
     def __unicode__(self):
@@ -45,7 +44,6 @@ class Cdcomment(models.Model):
     modifywhen = models.BigIntegerField()
 
     class Meta:
-        managed = False
         db_table = 'cdcomment'
 
 
@@ -58,7 +56,6 @@ class Cdtrack(models.Model):
     tracklength = models.BigIntegerField(blank=True, null=True)
 
     class Meta:
-        managed = False
         db_table = 'cdtrack'
 
 class Show(models.Model):
