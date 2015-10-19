@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import timedelta
 
+
 # Create your models here.
 
 
@@ -58,14 +59,16 @@ class Cdtrack(models.Model):
     class Meta:
         db_table = 'cdtrack'
 
+
 class Show(models.Model):
     name = models.CharField(max_length=200)
     defaultHost = models.CharField(max_length=200, blank=True)
-    startTime = models.TimeField();
-    endTime = models.TimeField();
+    startTime = models.TimeField()
+    endTime = models.TimeField()
 
     def __unicode__(self):
         return self.name
+
 
 class Playlist(models.Model):
     show = models.ForeignKey(Show, null=True)
@@ -78,21 +81,22 @@ class Playlist(models.Model):
     def __unicode__(self):
         return self.show + ' - ' + str(self.date)
 
+
 class PlaylistEntry(models.Model):
     playlist = models.ForeignKey(Playlist)
     # text entry
     artist = models.CharField(max_length=200, blank=False, null=False)
     album = models.CharField(max_length=200, blank=False, null=False)
     title = models.CharField(max_length=200, blank=False, null=False)
-    duration = models.DurationField(blank=True, null=True, default=timedelta());
+    duration = models.DurationField(blank=True, null=True, default=timedelta())
 
-    #quotas
+    # quotas
     local = models.BooleanField()
     australian = models.BooleanField()
     female = models.BooleanField()
     newRelease = models.BooleanField()
-    
-    #found in catalogue
+
+    # found in catalogue
     catalogueEntry = models.ForeignKey(Cdtrack, null=True)
 
     def __unicode__(self):
