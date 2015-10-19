@@ -1,4 +1,4 @@
-{% autoescape off %}{{playlist.show}} - {{playlist.date}}
+{% autoescape off %}{% if playlist.show %}{{playlist.show}}{% else %}{{playlist.showname}}{%endif%} - {{playlist.date}}
 
 {{playlist.notes}}
 

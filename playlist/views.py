@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect, Http404, HttpRespons
 from django.template import RequestContext, loader
 from django.forms.models import modelformset_factory
 from .forms import NewPlaylistForm, EditPlaylistForm, PlaylistEntryForm
-from .models import Playlist, PlaylistEntry, Cd, Cdtrack
+from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
 from django.contrib import messages
 import django_filters
 from rest_framework import filters
@@ -45,27 +45,20 @@ def new(request):
     if request.method == 'POST':
         form = NewPlaylistForm(request.POST)
         if form.is_valid():
-            showName = form.cleaned_data['showName'];
-            host = form.cleaned_data['host'];
-            date = form.cleaned_data['date'];
-            notes = form.cleaned_data['notes'];
-            
-            playlist = Playlist()
-            playlist.show = showName
-            playlist.date = date
-            playlist.host = host
-            playlist.notes = notes 
-
-            playlist.save()
-
+            playlist = form.save()
             return HttpResponseRedirect('/logger/' + str(playlist.id) + '/edit/')
-
         else:
-            return HttpResponseRedirect('/logger/')
+            context = RequestContext(request, {
+                'form': form,
+                'shows': Show.objects.all()
+            })
+            return render(request, 'playlist/new.html', context)
+
     else:
         form = NewPlaylistForm()
         context = RequestContext(request, {
-            'form': form
+            'form': form,
+            'shows': Show.objects.all()
         })
         return render(request, 'playlist/new.html', context)
 
@@ -90,7 +83,10 @@ def show(request, playlist_id):
 
         elif request.GET.get('format') == 'csv':
             response = HttpResponse(content_type='text/csv')
-            response['Content-Disposition'] = 'attachment; filename="' + playlist.show + '-' + playlist.date.isoformat() + '.csv"'
+            if playlist.show is None:
+                response['Content-Disposition'] = 'attachment; filename="' + playlist.showname + '-' + playlist.date.isoformat() + '.csv"'
+            else:
+                response['Content-Disposition'] = 'attachment; filename="' + playlist.show.name + '-' + playlist.date.isoformat() + '.csv"'
 
             out = csv.writer(response)
             out.writerow(['artist','track','album','local','australian','female','new release'])
@@ -98,7 +94,7 @@ def show(request, playlist_id):
             for track in playlist.playlistentry_set.all():
                 out.writerow([track.artist,track.title,track.album,track.local,track.australian,track.female,track.newRelease])
             return response
-    return render(request, 'playlist/view.html', context)
+    return render(request, "playlist/view.html", context)
 
 def edit(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)

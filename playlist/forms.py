@@ -3,7 +3,7 @@ from datetimewidget.widgets import DateWidget
 from django.forms import ModelForm
 from django.forms.widgets import TextInput, CheckboxInput, Textarea, TimeInput
 import datetime
-from .models import PlaylistEntry
+from .models import PlaylistEntry, Playlist, Show
 
 
 class ShortDurationField(forms.DurationField):
@@ -27,11 +27,16 @@ class ShortDurationField(forms.DurationField):
             return '0'
         return super(forms.DurationField, self).clean(value)
 
-class NewPlaylistForm(forms.Form):
-    showName = forms.CharField(label="Show Name", max_length="200")
-    host = forms.CharField(label="Hosts", max_length="200")
-    date = forms.DateField(label="Date", widget = DateWidget(usel10n=True, bootstrap_version=3))
-    notes = forms.CharField(widget = Textarea, required=False)
+
+class NewPlaylistForm(forms.ModelForm):
+    show = forms.ModelChoiceField(Show.objects.order_by('name'), required=True)
+    class Meta:
+        model = Playlist
+        fields = ['show','host','date','notes']
+        widgets = {
+                'date': DateWidget(usel10n=True, bootstrap_version=3),
+                'notes': Textarea(attrs={'placeholder' : 'Show notes, interview details, etc.'})
+            }
 
 class EditPlaylistForm(forms.Form):
     pass

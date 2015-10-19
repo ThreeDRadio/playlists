@@ -22,7 +22,11 @@
                                     </ul>
                                 </ul>
                             </div>
+                            {% if playlist.show %}
                             <h4>{{playlist.show}} <small> {{playlist.date}}</small></h4>
+                            {% else %}
+                            <h4>{{playlist.showname}} <small> {{playlist.date}}</small></h4>
+                            {% endif %}
                             <p class="small">{{playlist.notes}}</p>
 
                     </div></div>
