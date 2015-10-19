@@ -35,6 +35,68 @@ $('.typeahead-artist').each(function() {
 });
 });
 
+function updateQuotas() {
+    localRatio = localCount / (trackCount * 0.2);
+    ausRatio = ausCount / (trackCount * 0.4);
+    femaleRatio = femaleCount / (trackCount * 0.25);
+
+    $('#local_quota').html("" + localCount + "/" + (trackCount * 0.2).toFixed( 0));
+    $('#aus_quota').html("" + ausCount + "/" + (trackCount * 0.4).toFixed( 0));
+    $('#female_quota').html("" + femaleCount + "/" + (trackCount * 0.25).toFixed( 0));
+
+    if (trackCount < 3) {
+        $('#local_label').switchClass("label-warning label-danger label-success", "label-default");
+    }
+    else if (localRatio >= 1) {
+        $('#local_label').switchClass("label-warning label-danger", "label-success");
+    }
+    else if (localRatio >= 0.7) {
+        $('#local_label').switchClass("label-success label-danger", "label-warning");
+     }
+    else  {
+        $('#local_label').switchClass("label-success label-warning", "label-danger");
+    }
+
+    if (trackCount < 2) {
+        $('#aus_label').switchClass("label-warning label-danger label-success", "label-default");
+    }
+    else if (ausRatio >= 1) {
+        $('#aus_label').switchClass("label-warning label-danger", "label-success");
+    }
+    else if (ausRatio >= 0.7) {
+        $('#aus_label').switchClass("label-success label-danger", "label-warning");
+     }
+    else  {
+        $('#aus_label').switchClass("label-success label-warning", "label-danger");
+    }
+
+    if (trackCount < 2) {
+        $('#aus_label').switchClass("label-warning label-danger label-success", "label-default");
+    }
+    else if (femaleRatio >= 1) {
+        $('#female_label').switchClass("label-warning label-danger", "label-success");
+    }
+    else if (femaleRatio >= 0.7) {
+        $('#female_label').switchClass("label-success label-danger", "label-warning");
+     }
+    else  {
+        $('#female_label').switchClass("label-success label-warning", "label-danger");
+    }
+}
+
+function updatePlayCount() {
+    trackCount = 0;
+    $('.typeahead-track').each(function() {
+        if ($(this).val() == "") {
+
+        }
+        else {
+            trackCount++;
+        }
+    });
+    updateQuotas();
+}
+
 $('.typeahead-track').each(function() {
     if ($(this).val() == "") {
 
@@ -43,6 +105,9 @@ $('.typeahead-track').each(function() {
         trackCount++;
     }
     console.log($(this)[0].id);
+    $(this).on('input', function() {
+        updatePlayCount();
+        });
     $(this).typeahead(null, {
         name: 'tracks',
         source: tracks ,
@@ -60,9 +125,9 @@ $('.local_check').each(function() {
             localCount++;
         else
             localCount--;
-        $('#local_quota').html("" + localCount + "/" + trackCount);
+        updateQuotas();
     });
-    $('#local_quota').html("" + localCount + "/" + trackCount);
+    updateQuotas();
 });
 
 $('.australian_check').each(function() {
@@ -73,9 +138,9 @@ $('.australian_check').each(function() {
             ausCount++;
         else
             ausCount--;
-        $('#aus_quota').html(ausCount);
+        updateQuotas();
     });
-    $('#aus_quota').html(ausCount);
+    updateQuotas();
 });
 
 $('.female_check').each(function() {
@@ -86,9 +151,9 @@ $('.female_check').each(function() {
             femaleCount++;
         else
             femaleCount--;
-        $('#female_quota').html(femaleCount);
+        updateQuotas();
     });
-    $('#female_quota').html(femaleCount);
+    updateQuotas();
 });
 
 
