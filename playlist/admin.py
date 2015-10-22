@@ -2,15 +2,18 @@ from django.contrib import admin
 
 from .models import Playlist, PlaylistEntry, Show
 
+
 # Register your models here.
 class PlaylistEntryInline(admin.TabularInline):
-    list_display = ['artist','title']
+    list_display = ['artist', 'title']
     exclude = ['catalogueEntry']
-    model = PlaylistEntry 
+    model = PlaylistEntry
+
 
 class PlaylistEntryAdmin(admin.ModelAdmin):
-    model = PlaylistEntry 
+    model = PlaylistEntry
     exclude = ['catalogueEntry']
+
 
 class PlaylistAdmin(admin.ModelAdmin):
     inlines = [PlaylistEntryInline]
@@ -18,6 +21,7 @@ class PlaylistAdmin(admin.ModelAdmin):
 
 class ShowAdmin(admin.ModelAdmin):
     model = Show
+
 
 admin.site.register(Playlist, PlaylistAdmin)
 admin.site.register(PlaylistEntry, PlaylistEntryAdmin)

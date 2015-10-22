@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import timedelta
 
+
 # Create your models here.
 
 
@@ -49,7 +50,7 @@ class Cdcomment(models.Model):
 
 class Cdtrack(models.Model):
     trackid = models.BigIntegerField(primary_key=True)
-    album = models.ForeignKey(Cd, db_column='cdid', related_name="tracks")
+    cdid = models.ForeignKey(Cd, db_column='cdid', related_name="tracks")
     tracknum = models.BigIntegerField()
     tracktitle = models.CharField(max_length=200, blank=True, null=True)
     trackartist = models.CharField(max_length=200, blank=True, null=True)
@@ -58,14 +59,20 @@ class Cdtrack(models.Model):
     class Meta:
         db_table = 'cdtrack'
 
+
 class Show(models.Model):
-    show = models.CharField(max_length=200)
+    name = models.CharField(max_length=200)
     defaultHost = models.CharField(max_length=200, blank=True)
-    startTime = models.TimeField();
-    endTime = models.TimeField();
+    startTime = models.TimeField()
+    endTime = models.TimeField()
+
+    def __unicode__(self):
+        return self.name
+
 
 class Playlist(models.Model):
-    show = models.CharField(max_length=200)
+    show = models.ForeignKey(Show, null=True)
+    showname = models.CharField(max_length=200)
     host = models.CharField(max_length=200)
     date = models.DateField()
     notes = models.TextField(blank=True, null=True)
@@ -74,21 +81,22 @@ class Playlist(models.Model):
     def __unicode__(self):
         return self.show + ' - ' + str(self.date)
 
+
 class PlaylistEntry(models.Model):
     playlist = models.ForeignKey(Playlist)
     # text entry
     artist = models.CharField(max_length=200, blank=False, null=False)
     album = models.CharField(max_length=200, blank=False, null=False)
     title = models.CharField(max_length=200, blank=False, null=False)
-    duration = models.DurationField(blank=True, null=True, default=timedelta());
+    duration = models.DurationField(blank=True, null=True, default=timedelta())
 
-    #quotas
+    # quotas
     local = models.BooleanField()
     australian = models.BooleanField()
     female = models.BooleanField()
     newRelease = models.BooleanField()
-    
-    #found in catalogue
+
+    # found in catalogue
     catalogueEntry = models.ForeignKey(Cdtrack, null=True)
 
     def __unicode__(self):

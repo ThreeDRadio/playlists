@@ -30,6 +30,7 @@ ALLOWED_HOSTS = []
 BOWER_INSTALLED_APPS = {
     'typeahead.js',
     'floatThead',
+    'jquery-ui',
 }
 
 # Application definition
