@@ -16,9 +16,4 @@ class Migration(migrations.Migration):
             old_name='show',
             new_name='showname',
         ),
-        migrations.AlterField(
-            model_name='cdtrack',
-            name='cdid',
-            field=models.ForeignKey(related_name='tracks', db_column=b'cdid', to='playlist.Cd'),
-        ),
     ]
