@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^(?P<playlist_id>[0-9]+)/$', views.show, name='show'),
     url(r'^new/$', views.new, name='new'),
     url(r'^summary/$', views.summary, name='summary'),
+    url(r'^reports/$', views.reports, name='reports'),
 ]
 

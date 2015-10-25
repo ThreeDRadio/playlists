@@ -10,8 +10,9 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 import unicodecsv as csv
+from datetime import date
 
-from .forms import NewPlaylistForm, PlaylistEntryForm
+from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
 from serializers import ReleaseSerializer, TrackSerializer
 
@@ -29,17 +30,26 @@ def index(request):
 
 
 def summary(request):
-    playlists = Playlist.objects.all()
+    startDate = request.GET.get('startDate', date.min)
+    endDate = request.GET.get('endDate', date.max)
+    playlists = Playlist.objects.filter(date__range=(startDate, endDate))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
     out = csv.writer(response)
-    out.writerow(['show', 'date', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
+    out.writerow(['show', 'date','start time', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
 
     for playlist in playlists:
+        if playlist.show is None:
+            showname = playlist.showname
+            startTime = '0:00'
+        else:
+            showname = playlist.show.name
+            startTime = playlist.show.startTime
+
         for track in playlist.playlistentry_set.all():
             out.writerow(
-                [playlist.show, playlist.date, track.artist, track.title, track.album, track.local, track.australian,
+                [showname, playlist.date, startTime, track.artist, track.title, track.album, track.local, track.australian,
                  track.female, track.newRelease])
 
     return response
@@ -142,6 +152,18 @@ def edit(request, playlist_id):
 
     return render(request, 'playlist/edit.html', context)
 
+def reports(request):
+    if request.method == 'POST':
+        form = SummaryReportForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/logger/summary/?startDate=' + unicode(form.cleaned_data.get('startDate')) +
+                                        '&endDate=' +  unicode(form.cleaned_data.get('endDate')))
+    else:
+        form = SummaryReportForm()
+    context = RequestContext(request, {
+        'form': form,
+    })
+    return render(request, 'playlist/reports.html', context)
 
 ###############
 
