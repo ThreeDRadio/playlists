@@ -10,8 +10,9 @@ from rest_framework.decorators import list_route
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 import unicodecsv as csv
+from datetime import date
 
-from .forms import NewPlaylistForm, PlaylistEntryForm
+from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
 from serializers import ReleaseSerializer, TrackSerializer
 
@@ -29,7 +30,9 @@ def index(request):
 
 
 def summary(request):
-    playlists = Playlist.objects.all()
+    startDate = request.GET.get('startDate', date.min)
+    endDate = request.GET.get('endDate', date.max)
+    playlists = Playlist.objects.filter(date__range=(startDate, endDate))
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
@@ -150,7 +153,17 @@ def edit(request, playlist_id):
     return render(request, 'playlist/edit.html', context)
 
 def reports(request):
-    pass
+    if request.method == 'POST':
+        form = SummaryReportForm(request.POST)
+        if form.is_valid():
+            return HttpResponseRedirect('/logger/summary/?startDate=' + unicode(form.cleaned_data.get('startDate')) +
+                                        '&endDate=' +  unicode(form.cleaned_data.get('endDate')))
+    else:
+        form = SummaryReportForm()
+    context = RequestContext(request, {
+        'form': form,
+    })
+    return render(request, 'playlist/reports.html', context)
 
 ###############
 
