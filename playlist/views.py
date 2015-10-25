@@ -34,12 +34,19 @@ def summary(request):
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
     out = csv.writer(response)
-    out.writerow(['show', 'date', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
+    out.writerow(['show', 'date','start time', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
 
     for playlist in playlists:
+        if playlist.show is None:
+            showname = playlist.showname
+            startTime = '0:00'
+        else:
+            showname = playlist.show.name
+            startTime = playlist.show.startTime
+
         for track in playlist.playlistentry_set.all():
             out.writerow(
-                [playlist.show, playlist.date, track.artist, track.title, track.album, track.local, track.australian,
+                [showname, playlist.date, startTime, track.artist, track.title, track.album, track.local, track.australian,
                  track.female, track.newRelease])
 
     return response
@@ -142,6 +149,8 @@ def edit(request, playlist_id):
 
     return render(request, 'playlist/edit.html', context)
 
+def reports(request):
+    pass
 
 ###############
 
