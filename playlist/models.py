@@ -5,7 +5,6 @@ from datetime import timedelta
 # Create your models here.
 
 
-
 class Cd(models.Model):
     id = models.BigIntegerField(primary_key=True)
     artist = models.CharField(max_length=200, blank=True, null=True)

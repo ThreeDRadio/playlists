@@ -37,10 +37,10 @@ class NewPlaylistForm(forms.ModelForm):
         fields = ['show', 'host', 'date', 'notes']
         widgets = {
             'date': DateWidget(usel10n=True, bootstrap_version=3),
-            'notes': Textarea(attrs={'placeholder': 'Show notes, interview details, etc.'})
+            'notes': Textarea(
+                attrs={'placeholder': 'Show notes, interview details, etc.'}
+            )
         }
-
-
 
 
 class PlaylistEntryForm(forms.ModelForm):
@@ -59,6 +59,7 @@ class PlaylistEntryForm(forms.ModelForm):
             'australian': CheckboxInput(attrs={'class': "australian_check", }),
             'female': CheckboxInput(attrs={'class': "female_check", }),
         }
+
 
 class SummaryReportForm(forms.Form):
     startDate = forms.DateField(label='Start Date', widget=DateWidget(usel10n=True, bootstrap_version=3))

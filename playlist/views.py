@@ -37,7 +37,8 @@ def summary(request):
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
     out = csv.writer(response)
-    out.writerow(['show', 'date','start time', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
+    out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album',
+                  'local', 'australian', 'female', 'new release'])
 
     for playlist in playlists:
         if playlist.show is None:
@@ -93,7 +94,6 @@ def show(request, playlist_id):
             response['Content-Type'] = 'text/plain; charset=utf-8'
             return response
 
-
         elif request.GET.get('format') == 'csv':
             response = HttpResponse(content_type='text/csv')
             if playlist.show is None:
@@ -116,7 +116,6 @@ def show(request, playlist_id):
 def edit(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
 
-    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).values()
     EntryFormSet = modelformset_factory(PlaylistEntry, extra=60, form=PlaylistEntryForm)
     formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
 
@@ -134,7 +133,7 @@ def edit(request, playlist_id):
                 return HttpResponseRedirect('/logger/?saved=true')
         else:
             messages.error(request,
-                        'You have invalid data in your logging sheet. Please fix the problems and try saving again..')
+                           'You have invalid data in your logging sheet. Please fix the problems and try saving again..')
             context = RequestContext(request, {
                 'playlist': playlist,
                 'formset': formset,
@@ -152,12 +151,13 @@ def edit(request, playlist_id):
 
     return render(request, 'playlist/edit.html', context)
 
+
 def reports(request):
     if request.method == 'POST':
         form = SummaryReportForm(request.POST)
         if form.is_valid():
             return HttpResponseRedirect('/logger/summary/?startDate=' + unicode(form.cleaned_data.get('startDate')) +
-                                        '&endDate=' +  unicode(form.cleaned_data.get('endDate')))
+                                        '&endDate=' + unicode(form.cleaned_data.get('endDate')))
     else:
         form = SummaryReportForm()
     context = RequestContext(request, {
@@ -166,6 +166,7 @@ def reports(request):
     return render(request, 'playlist/reports.html', context)
 
 ###############
+
 
 class ReleaseViewSet(viewsets.ModelViewSet):
     queryset = Cd.objects.all()
