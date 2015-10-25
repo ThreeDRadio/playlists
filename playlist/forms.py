@@ -16,7 +16,7 @@ class ShortDurationField(forms.DurationField):
             minutes = int((seconds - hours * 60 * 60) // 60)
             second = int(seconds % 60)
             if hours > 0:
-                return {'0'}.format(hours, minutes, second)
+                return '{:01d}:{:02d}:{:02d}'.format(hours, minutes, second)
 
             return '{:01d}:{:02d}'.format(minutes, second)
         else:
@@ -70,4 +70,4 @@ class SummaryReportForm(forms.Form):
         if cleaned_data.get("startDate") > cleaned_data.get("endDate"):
             self.add_error('startDate', "")
             self.add_error('endDate', '')
-            raise forms.ValidationError("End date cannot be before Start Date!");
+            raise forms.ValidationError("End date cannot be before Start Date!")

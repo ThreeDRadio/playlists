@@ -3,6 +3,51 @@ from django.template import Template, Context
 
 from datetime import timedelta
 
+from .forms import ShortDurationField
+
+
+class ShortDurationFieldTest(TestCase):
+
+    def setUp(self):
+        pass
+
+    def testEmptyString(self):
+        field = ShortDurationField()
+        value = field.prepare_value('')
+        self.assertEqual(value, '')
+
+    def testNone(self):
+        field = ShortDurationField()
+        value = field.prepare_value(None)
+        self.assertEqual(value, None)
+
+    def testSecondsOnly(self):
+        field = ShortDurationField()
+        date = timedelta(seconds=34)
+        value = field.prepare_value(date)
+        self.assertEqual(value, '0:34')
+
+        date = timedelta(seconds=2)
+        value = field.prepare_value(date)
+        self.assertEqual(value, '0:02')
+
+    def testMinutesSeconds(self):
+        field = ShortDurationField()
+
+        date = timedelta(minutes=1, seconds=34)
+        value = field.prepare_value(date)
+        self.assertEqual(value, '1:34')
+
+        date = timedelta(minutes=21, seconds=30)
+        value = field.prepare_value(date)
+        self.assertEqual(value, '21:30')
+
+    def testHoursMinutesSeconds(self):
+        field = ShortDurationField()
+        date = timedelta(hours=4, minutes=1, seconds=34)
+        value = field.prepare_value(date)
+        self.assertEqual(value, '4:01:34')
+
 
 class TimeDeltaTagTest(TestCase):
     TEMPLATE = Template("{% load time_delta %}{{value|time_delta}}")
