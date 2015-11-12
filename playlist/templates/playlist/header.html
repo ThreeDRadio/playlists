@@ -10,13 +10,13 @@
         <!-- Bootstrap -->
         {% load staticfiles %}
         {% load bootstrap3 %}
-        {% bootstrap_css %}
-        <script src="{% bootstrap_jquery_url %}"></script>
+        <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
         <script type="text/javascript" src='{% static 'typeahead.js/dist/typeahead.bundle.min.js' %}'></script>
         <script type="text/javascript" src='{% static 'jquery-ui/jquery-ui.min.js' %}'></script>
         <script type="text/javascript" src='{% static 'floatThead/dist/jquery.floatThead.min.js' %}'></script>
-        {% bootstrap_javascript %}
         {{ form.media }}
+        <link rel="stylesheet" href="{% static "bootstrap/dist/css/bootstrap.min.css" %}" />
         <link rel="stylesheet" href="{% static "css/print.css" %}" />
         <link rel="stylesheet" href="{% static "css/custom.css" %}" />
 

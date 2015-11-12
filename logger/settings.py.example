@@ -31,6 +31,8 @@ BOWER_INSTALLED_APPS = {
     'typeahead.js',
     'floatThead',
     'jquery-ui',
+    'jquery',
+    'bootstrap',
 }
 
 # Application definition
