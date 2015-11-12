@@ -20,7 +20,7 @@ from serializers import ReleaseSerializer, TrackSerializer
 # Create your views here.
 
 def index(request):
-    playlists = Playlist.objects.order_by('-pk')
+    playlists = Playlist.objects.order_by('date').order_by('-pk')
     if request.GET.get('saved') == 'true':
         messages.success(request, 'Playlist Submitted.')
     context = RequestContext(request, {
@@ -78,7 +78,7 @@ def new(request):
         return render(request, 'playlist/new.html', context)
 
 
-def show(request, playlist_id):
+def playlist(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
     tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).order_by("pk")
@@ -150,6 +150,17 @@ def edit(request, playlist_id):
     })
 
     return render(request, 'playlist/edit.html', context)
+
+
+def shows(request, show_id):
+    show = get_object_or_404(Show, pk=show_id)
+    playlists = show.playlists.order_by('-date')
+    context = RequestContext(request, {
+        'show': show,
+        'playlists': playlists,
+    })
+
+    return render(request, 'playlist/show.html', context)
 
 
 def reports(request):

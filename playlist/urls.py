@@ -3,10 +3,10 @@ from . import views
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^(?P<playlist_id>[0-9]+)/edit/$', views.edit, name='edit'),
-    url(r'^(?P<playlist_id>[0-9]+)/$', views.show, name='show'),
+    url(r'^playlists/(?P<playlist_id>[0-9]+)/edit/$', views.edit, name='edit'),
+    url(r'^playlists/(?P<playlist_id>[0-9]+)/$', views.playlist, name='playlist'),
     url(r'^new/$', views.new, name='new'),
     url(r'^summary/$', views.summary, name='summary'),
     url(r'^reports/$', views.reports, name='reports'),
+    url(r'^shows/(?P<show_id>[0-9]+)/$', views.shows, name='show'),
 ]
-

@@ -1,10 +1,37 @@
-        {% load bootstrap3 %}
-{% include 'playlist/header.html' %}
-
+        {% load time_delta %}
+        {% include 'playlist/header.html' %}
+        
         <div class="container">
-
-                <h1>Recent Logging Sheets</h1>
-
+        
+            <h1>{{ show }} <small> with {{ show.defaultHost }}</small></h1>
+        
+            <div class="row">
+        
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Most played artists
+                        </div>
+                        <div class="panel-body">
+                            
+                        </div>
+                    </div>
+        
+                </div>
+        
+                <div class="col-md-6">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            Statistics 
+                        </div>
+                        <div class="panel-body">
+                            
+                        </div>
+                    </div>
+        
+                </div>
+        
+            </div>
                 {% for playlist in playlists %}
 
                 <div class="panel panel-default">
@@ -23,7 +50,7 @@
                                 </ul>
                             </div>
                             {% if playlist.show %}
-                            <h4><a href="/logger/shows/{{playlist.show.id}}/">{{playlist.show}}</a> <small> {{playlist.date}}</small></h4>
+                            <h4>{{playlist.show}} <small> {{playlist.date}}</small></h4>
                             {% else %}
                             <h4>{{playlist.showname}} <small> {{playlist.date}}</small></h4>
                             {% endif %}
@@ -32,9 +59,7 @@
                     </div></div>
 
                     {% endfor %}
-
-                </div>
-
-            </body>
-        </html>
-
+        
+        </div>
+    </body>
+</html>
