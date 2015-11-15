@@ -46,3 +46,9 @@ span.twitter-typeahead {
 th {
     background-color: #fff;
 }
+
+
+#showStats: {
+    width: 100%,
+    height: auto
+}

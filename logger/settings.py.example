@@ -33,6 +33,8 @@ BOWER_INSTALLED_APPS = {
     'jquery-ui',
     'jquery',
     'bootstrap',
+    'chart.horizontalbar',
+    'Chart.js'
 }
 
 # Application definition

@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 import unicodecsv as csv
 from datetime import date
+from django.db.models import Count
 
 from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
@@ -155,9 +156,21 @@ def edit(request, playlist_id):
 def shows(request, show_id):
     show = get_object_or_404(Show, pk=show_id)
     playlists = show.playlists.order_by('-date')
+    songCount = PlaylistEntry.objects.filter(playlist__show=show).count()
+    local = PlaylistEntry.objects.filter(playlist__show=show).filter(local=True).count()
+    australian = PlaylistEntry.objects.filter(playlist__show=show).filter(australian=True).count()
+    female = PlaylistEntry.objects.filter(playlist__show=show).filter(female=True).count()
+    artists = PlaylistEntry.objects.filter(playlist__show=show).distinct('artist').count()
+    top = PlaylistEntry.objects.filter(playlist__show=show).values('artist').annotate(plays=Count('artist')).order_by('-plays')[:10]
     context = RequestContext(request, {
         'show': show,
         'playlists': playlists,
+        'songCount': songCount,
+        'artists': artists,
+        'local': local,
+        'australian': australian,
+        'female': female,
+        'top': top,
     })
 
     return render(request, 'playlist/show.html', context)
