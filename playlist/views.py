@@ -21,11 +21,24 @@ from serializers import ReleaseSerializer, TrackSerializer
 # Create your views here.
 
 def index(request):
+    songCount = PlaylistEntry.objects.all().count()
+    local = PlaylistEntry.objects.filter(local=True).count()
+    australian = PlaylistEntry.objects.filter(australian=True).count()
+    female = PlaylistEntry.objects.filter(female=True).count()
+    artists = PlaylistEntry.objects.distinct('artist').count()
+    top = PlaylistEntry.objects.values('artist').annotate(plays=Count('artist')).order_by('-plays')[:10]
+
     playlists = Playlist.objects.order_by('date').order_by('-pk')
     if request.GET.get('saved') == 'true':
         messages.success(request, 'Playlist Submitted.')
     context = RequestContext(request, {
-        'playlists': playlists
+        'playlists': playlists,
+        'songCount': songCount,
+        'artists': artists,
+        'local': local,
+        'australian': australian,
+        'female': female,
+        'top': top,
     })
     return render(request, 'playlist/index.html', context)
 
