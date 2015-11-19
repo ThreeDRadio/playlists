@@ -16,7 +16,7 @@ class ShortDurationField(forms.DurationField):
             minutes = int((seconds - hours * 60 * 60) // 60)
             second = int(seconds % 60)
             if hours > 0:
-                return {'0'}.format(hours, minutes, second)
+                return '{:01d}:{:02d}:{:02d}'.format(hours, minutes, second)
 
             return '{:01d}:{:02d}'.format(minutes, second)
         else:
@@ -37,10 +37,10 @@ class NewPlaylistForm(forms.ModelForm):
         fields = ['show', 'host', 'date', 'notes']
         widgets = {
             'date': DateWidget(usel10n=True, bootstrap_version=3),
-            'notes': Textarea(attrs={'placeholder': 'Show notes, interview details, etc.'})
+            'notes': Textarea(
+                attrs={'placeholder': 'Show notes, interview details, etc.'}
+            )
         }
-
-
 
 
 class PlaylistEntryForm(forms.ModelForm):
@@ -60,6 +60,7 @@ class PlaylistEntryForm(forms.ModelForm):
             'female': CheckboxInput(attrs={'class': "female_check", }),
         }
 
+
 class SummaryReportForm(forms.Form):
     startDate = forms.DateField(label='Start Date', widget=DateWidget(usel10n=True, bootstrap_version=3))
     endDate = forms.DateField(label='End Date', widget=DateWidget(usel10n=True, bootstrap_version=3))
@@ -69,4 +70,4 @@ class SummaryReportForm(forms.Form):
         if cleaned_data.get("startDate") > cleaned_data.get("endDate"):
             self.add_error('startDate', "")
             self.add_error('endDate', '')
-            raise forms.ValidationError("End date cannot be before Start Date!");
+            raise forms.ValidationError("End date cannot be before Start Date!")

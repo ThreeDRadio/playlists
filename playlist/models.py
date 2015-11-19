@@ -5,7 +5,6 @@ from datetime import timedelta
 # Create your models here.
 
 
-
 class Cd(models.Model):
     id = models.BigIntegerField(primary_key=True)
     artist = models.CharField(max_length=200, blank=True, null=True)
@@ -71,7 +70,7 @@ class Show(models.Model):
 
 
 class Playlist(models.Model):
-    show = models.ForeignKey(Show, null=True)
+    show = models.ForeignKey(Show, null=True, related_name="playlists")
     showname = models.CharField(max_length=200)
     host = models.CharField(max_length=200)
     date = models.DateField()

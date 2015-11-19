@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 import unicodecsv as csv
 from datetime import date
+from django.db.models import Count
 
 from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
@@ -20,11 +21,24 @@ from serializers import ReleaseSerializer, TrackSerializer
 # Create your views here.
 
 def index(request):
-    playlists = Playlist.objects.order_by('-pk')
+    songCount = PlaylistEntry.objects.all().count()
+    local = PlaylistEntry.objects.filter(local=True).count()
+    australian = PlaylistEntry.objects.filter(australian=True).count()
+    female = PlaylistEntry.objects.filter(female=True).count()
+    artists = PlaylistEntry.objects.distinct('artist').count()
+    top = PlaylistEntry.objects.values('artist').annotate(plays=Count('artist')).order_by('-plays')[:10]
+
+    playlists = Playlist.objects.order_by('date').order_by('-pk')
     if request.GET.get('saved') == 'true':
         messages.success(request, 'Playlist Submitted.')
     context = RequestContext(request, {
-        'playlists': playlists
+        'playlists': playlists,
+        'songCount': songCount,
+        'artists': artists,
+        'local': local,
+        'australian': australian,
+        'female': female,
+        'top': top,
     })
     return render(request, 'playlist/index.html', context)
 
@@ -37,7 +51,8 @@ def summary(request):
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
     out = csv.writer(response)
-    out.writerow(['show', 'date','start time', 'artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
+    out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album',
+                  'local', 'australian', 'female', 'new release'])
 
     for playlist in playlists:
         if playlist.show is None:
@@ -77,7 +92,7 @@ def new(request):
         return render(request, 'playlist/new.html', context)
 
 
-def show(request, playlist_id):
+def playlist(request, playlist_id):
     playlist = get_object_or_404(Playlist, pk=playlist_id)
 
     tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).order_by("pk")
@@ -92,7 +107,6 @@ def show(request, playlist_id):
             response = render(request, 'playlist/textview.html', context)
             response['Content-Type'] = 'text/plain; charset=utf-8'
             return response
-
 
         elif request.GET.get('format') == 'csv':
             response = HttpResponse(content_type='text/csv')
@@ -116,7 +130,6 @@ def show(request, playlist_id):
 def edit(request, playlist_id):
     playlist = Playlist.objects.get(pk=playlist_id)
 
-    tracks = PlaylistEntry.objects.filter(playlist_id=playlist.pk).values()
     EntryFormSet = modelformset_factory(PlaylistEntry, extra=60, form=PlaylistEntryForm)
     formset = EntryFormSet(queryset=PlaylistEntry.objects.filter(playlist=playlist))
 
@@ -134,7 +147,7 @@ def edit(request, playlist_id):
                 return HttpResponseRedirect('/logger/?saved=true')
         else:
             messages.error(request,
-                        'You have invalid data in your logging sheet. Please fix the problems and try saving again..')
+                           'You have invalid data in your logging sheet. Please fix the problems and try saving again..')
             context = RequestContext(request, {
                 'playlist': playlist,
                 'formset': formset,
@@ -152,12 +165,36 @@ def edit(request, playlist_id):
 
     return render(request, 'playlist/edit.html', context)
 
+
+def shows(request, show_id):
+    show = get_object_or_404(Show, pk=show_id)
+    playlists = show.playlists.order_by('-date')
+    songCount = PlaylistEntry.objects.filter(playlist__show=show).count()
+    local = PlaylistEntry.objects.filter(playlist__show=show).filter(local=True).count()
+    australian = PlaylistEntry.objects.filter(playlist__show=show).filter(australian=True).count()
+    female = PlaylistEntry.objects.filter(playlist__show=show).filter(female=True).count()
+    artists = PlaylistEntry.objects.filter(playlist__show=show).distinct('artist').count()
+    top = PlaylistEntry.objects.filter(playlist__show=show).values('artist').annotate(plays=Count('artist')).order_by('-plays')[:10]
+    context = RequestContext(request, {
+        'show': show,
+        'playlists': playlists,
+        'songCount': songCount,
+        'artists': artists,
+        'local': local,
+        'australian': australian,
+        'female': female,
+        'top': top,
+    })
+
+    return render(request, 'playlist/show.html', context)
+
+
 def reports(request):
     if request.method == 'POST':
         form = SummaryReportForm(request.POST)
         if form.is_valid():
             return HttpResponseRedirect('/logger/summary/?startDate=' + unicode(form.cleaned_data.get('startDate')) +
-                                        '&endDate=' +  unicode(form.cleaned_data.get('endDate')))
+                                        '&endDate=' + unicode(form.cleaned_data.get('endDate')))
     else:
         form = SummaryReportForm()
     context = RequestContext(request, {
@@ -166,6 +203,7 @@ def reports(request):
     return render(request, 'playlist/reports.html', context)
 
 ###############
+
 
 class ReleaseViewSet(viewsets.ModelViewSet):
     queryset = Cd.objects.all()
