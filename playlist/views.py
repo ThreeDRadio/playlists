@@ -75,7 +75,7 @@ def new(request):
         form = NewPlaylistForm(request.POST)
         if form.is_valid():
             playlist = form.save()
-            return HttpResponseRedirect('/logger/' + str(playlist.id) + '/edit/')
+            return HttpResponseRedirect('/logger/playlists/' + str(playlist.id) + '/edit/')
         else:
             context = RequestContext(request, {
                 'form': form,
