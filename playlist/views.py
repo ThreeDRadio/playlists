@@ -51,7 +51,7 @@ def summary(request):
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
     out = csv.writer(response)
-    out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album',
+    out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album','duration',
                   'local', 'australian', 'female', 'new release'])
 
     for playlist in playlists:
@@ -64,7 +64,7 @@ def summary(request):
 
         for track in playlist.playlistentry_set.all():
             out.writerow(
-                [showname, playlist.date, startTime, track.artist, track.title, track.album, track.local, track.australian,
+                [showname, playlist.date, startTime, track.artist, track.title, track.album, track.duration, track.local, track.australian,
                  track.female, track.newRelease])
 
     return response
