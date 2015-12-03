@@ -112,6 +112,8 @@ def playlist(request, playlist_id):
 
     if request.method == 'GET':
         if request.GET.get('format') == 'text':
+            if request.GET.get('album') == 'true':
+                context.push({'printalbum': True})
             response = render(request, 'playlist/textview.html', context)
             response['Content-Type'] = 'text/plain; charset=utf-8'
             return response
