@@ -43,6 +43,14 @@ def index(request):
     return render(request, 'playlist/index.html', context)
 
 
+def today(request):
+    songs = PlaylistEntry.objects.filter(playlist__date=date.today()).values('artist', 'title', 'album').annotate(plays=Count('title')).order_by('-plays')
+    context = RequestContext(request, {
+        'songs': songs,
+    })
+    return render(request, 'playlist/today.html', context)
+
+
 def summary(request):
     startDate = request.GET.get('startDate', date.min)
     endDate = request.GET.get('endDate', date.max)
@@ -104,6 +112,8 @@ def playlist(request, playlist_id):
 
     if request.method == 'GET':
         if request.GET.get('format') == 'text':
+            if request.GET.get('album') == 'true':
+                context.push({'printalbum': True})
             response = render(request, 'playlist/textview.html', context)
             response['Content-Type'] = 'text/plain; charset=utf-8'
             return response
