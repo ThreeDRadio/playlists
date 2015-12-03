@@ -43,6 +43,14 @@ def index(request):
     return render(request, 'playlist/index.html', context)
 
 
+def today(request):
+    songs = PlaylistEntry.objects.filter(playlist__date=date.today()).values('artist', 'title', 'album').annotate(plays=Count('title')).order_by('-plays')
+    context = RequestContext(request, {
+        'songs': songs,
+    })
+    return render(request, 'playlist/today.html', context)
+
+
 def summary(request):
     startDate = request.GET.get('startDate', date.min)
     endDate = request.GET.get('endDate', date.max)
