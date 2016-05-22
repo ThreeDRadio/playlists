@@ -15,7 +15,7 @@ from django.db.models import Count
 
 from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
-from serializers import ReleaseSerializer, TrackSerializer
+from serializers import ReleaseSerializer, TrackSerializer, ShowSerializer, PlaylistSerializer, PlaylistEntrySerializer
 
 
 # Create your views here.
@@ -251,6 +251,17 @@ class TrackViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     filter_class = TrackFilter
 
+class ShowViewSet(viewsets.ModelViewSet):
+    queryset = Show.objects.all()
+    serializer_class = ShowSerializer
+
+class PlaylistViewSet(viewsets.ModelViewSet):
+    queryset = Playlist.objects.all()
+    serializer_class = PlaylistSerializer
+
+class PlaylistEntryViewSet(viewsets.ModelViewSet):
+    queryset = PlaylistEntry.objects.all()
+    serializer_class = PlaylistEntrySerializer
 
 class ArtistViewSet(viewsets.ViewSet):
     filter_backends = (filters.SearchFilter,)
