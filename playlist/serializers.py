@@ -28,9 +28,13 @@ class ShowSerializer(serializers.ModelSerializer):
         fields = ('id', 'name', 'startTime', 'endTime', 'defaultHost') 
 
 class PlaylistEntrySerializer(serializers.ModelSerializer):
+    playlist = serializers.PrimaryKeyRelatedField(
+            queryset = Playlist.objects.all()
+    )
+
     class Meta:
         model = PlaylistEntry
-        fields = ('id', 'artist','album','title','duration','local','australian','female','newRelease' )
+        fields = ('id', 'artist','album','title','duration','local','australian','female','newRelease','playlist' )
     pass
 
 class PlaylistSerializer(serializers.ModelSerializer):
