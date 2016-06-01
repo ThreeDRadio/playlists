@@ -1,4 +1,5 @@
 import Model from 'ember-data/model';
+import {asMany} from 'ember-data/relationships';
 
 export default Model.extend({
 
