@@ -6,6 +6,7 @@ import attr from 'ember-data/attr';
 export default Model.extend({
 
     show: belongsTo('show'),
+    showname: attr('string'),
     host: attr('string'),
     date: attr('date'),
     notes: attr('string'),
