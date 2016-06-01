@@ -11,6 +11,6 @@ export default Model.extend({
     date: attr('string'),
     notes: attr('string'),
     complete: attr('boolean'),
-    tracks: hasMany('playlistentry')
+    tracks: hasMany('playlistentry', {inverse: 'playlist'})
   
 });
