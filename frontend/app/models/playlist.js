@@ -8,7 +8,7 @@ export default Model.extend({
     show: belongsTo('show'),
     showname: attr('string'),
     host: attr('string'),
-    date: attr('date'),
+    date: attr('string'),
     notes: attr('string'),
     complete: attr('boolean'),
     tracks: hasMany('playlistentry')
