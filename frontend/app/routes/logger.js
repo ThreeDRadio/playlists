@@ -1,7 +1,13 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-    model() {
-        return this.store.findAll('playlist');
+    model(params) {
+        return this.store.query('playlist', {page: params.page, ordering: params.ordering});
+    },
+
+    queryParams: {
+        page: {
+            refreshModel: true
+        }
     }
 });

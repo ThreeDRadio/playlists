@@ -11,6 +11,21 @@
         {{/each}}
     {{/each}}
 
+    <nav>
+    <ul class="pager">
+        {{#if model.meta.previous}}
+        <li>{{#link-to "logger" (query-params page=model.meta.previous)}}Newer Playlists{{/link-to}}</li>
+        {{else}}
+        <li class="disabled"><span>Newer Playlists</span></li>
+        {{/if}}
+        {{#if model.meta.next}}
+        <li>{{#link-to "logger" (query-params page=model.meta.next)}}Older Playlists{{/link-to}}</li>
+        {{else}}
+        <li class="disabled"><span>Older Playlists</span></li>
+        {{/if}}
+    </ul>
+    </nav>
+
 </div>
 
 {{outlet}}
