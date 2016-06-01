@@ -2,10 +2,13 @@
 <div class="container">
     <h1>Recent Logging Sheets</h1>
 
-    {{#each model as |playlist|}}
+    {{#each playlistsByDate as |group|}}
+    <h2>{{pretty-date group.value }}</h2>
+        {{#each group.items as |playlist|}}
 
-        {{playlist-summary playlist=playlist}}
+            {{playlist-summary playlist=playlist}}
 
+        {{/each}}
     {{/each}}
 
 </div>
