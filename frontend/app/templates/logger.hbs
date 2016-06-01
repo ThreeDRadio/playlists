@@ -2,6 +2,12 @@
 <div class="container">
     <h1>Recent Logging Sheets</h1>
 
+    {{#each model as |playlist|}}
+
+        {{playlist-summary playlist=playlist}}
+
+    {{/each}}
+
 </div>
 
 {{outlet}}

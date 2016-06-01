@@ -1,1 +1,26 @@
-{{yield}}
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="pull-right">
+            <ul class="nav nav-pills">
+                <li role="presentation"><a href="/logger/playlists/{{playlist.id}}" role="button">View Tracks</a></li>
+                <li role="presentation"><a href="/logger/playlists/{{playlist.id}}/edit" role="button">Edit Playlist</a></li>
+                <li role="presentation" class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" />
+                    Export<span class="caret"></span>
+                    <ul class="dropdown-menu">
+                        <li><a href="/logger/playlists/{{playlist.id}}?format=text" role="button">Artist - Track</a></li>
+                        <li><a href="/logger/playlists/{{playlist.id}}?format=text&album=true" role="button">Artist - Track, Album</a></li>
+                        <li><a href="/logger/playlists/{{playlist.id}}?format=csv" role="button">CSV</a></li>
+                    </ul>
+                    </li>
+                </ul>
+            </div>
+            {{#if playlist.show }}
+            <h4><a href="/logger/shows/{{playlist.show.id}}/">{{playlist.show.name}}asdf</a> <small> {{playlist.date}}</small></h4>
+            {{else }}
+            <h4>{{playlist.showname}} <small> {{playlist.date}}</small></h4>
+            {{/if }}
+            <p class="small">{{playlist.notes}}</p>
+
+        </div>
+    </div>
