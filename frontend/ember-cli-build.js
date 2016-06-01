@@ -24,5 +24,6 @@ module.exports = function(defaults) {
   app.import('bower_components/bootstrap/dist/css/bootstrap-theme.css');
   app.import('bower_components/bootstrap/dist/js/bootstrap.js');
   app.import('bower_components/moment/moment.js');
+  app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', {destDir: '/fonts'});
   return app.toTree();
 };
