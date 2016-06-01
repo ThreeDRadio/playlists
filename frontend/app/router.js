@@ -6,7 +6,10 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('logger');
+  this.route('logger', function() {
+    this.route('index', {path: '/'} );
+    this.route('playlists', {path: '/playlists/:playlist_id'});
+  });
 });
 
 export default Router;
