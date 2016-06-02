@@ -45,25 +45,40 @@
                 <th>#</th><th>Artist</th><th>Track</th><th>Album</th><th>Duration</th><th>Local</th><th>Aus</th><th>Fem</th><th>NR</th>
             </tr>
         </thead>
+        <tbody>
 
         {{#each model.tracks as |track index|}}
         <tr >
             <td>{{one-index index}}</td>
-            <td><div class="{{ track.artist.css_classes }}">{{ track.artist }}</div></td>
-            <td><div class="{{ track.title.css_classes }}">{{ track.title }}</div></td>
-            <td><div class="{{ track.album.css_classes }}">{{ track.album }}</div></td>
-            <td><div class="{{ track.duration.css_classes }}">{{ track.duration }}</div></td>
-            <td><div class="{{ track.local.css_classes }}">{{ track.local }}</div></td>
-            <td><div class="{{ track.australian.css_classes }}">{{ track.australian }}</div></td>
-            <td><div class="{{ track.female.css_classes }}">{{ track.female }}</div></td>
-            <td><div class="{{ track.newRelase.css_classes }}">{{ track.newRelease }}</div></td>
+            <td>{{ track.artist }}</td>
+            <td>{{ track.title }}</td>
+            <td>{{ track.album }}</td>
+            <td>{{ track.duration }}</td>
+            <td align="center">{{#if track.local }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if}} </td>
+            <td align="center">{{#if track.australian }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+            <td align="center">{{#if track.female }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+            <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+        </tr>
+        {{/each}}
+        <tr {{action "submitTrack" on="enter"}}>
+            <td>+</td>
+            <td>{{input action="submitTrack" class="form-control input-sm" value=artist name="artist" placeholder="Artist"}}</td>
+            <td>{{input action="submitTrack" class="form-control input-sm" value=track name="track" placeholder="Track"}}</td>
+            <td>{{input action="submitTrack" class="form-control input-sm" value=album name="album" placeholder="Album"}}</td>
+            <td>{{input action="submitTrack" class="form-control input-sm durationField" value=duration width="6" name="duration" placeholder="MM:SS"}}</td>
+            <td align="center">
+                {{input key-press="submitTrack" checked=local type="checkbox" name=local}}
+            </td>
+            <td align="center">{{input action="submitTrack" checked=australian type="checkbox" name=australian}}</td>
+            <td align="center">{{input action="submitTrack" checked=female type="checkbox" name=female}}</td>
+            <td align="center">{{input action="submitTrack" checked=newRelease type="checkbox" name=newRelease}}</td>
         </tr>
 
-        {{/each}}
+    </tbody>
 
     </table>
     <div class="pull-right">
-        <input class="btn btn-default" type="submit" name="save" value="Save and Continue">
+        <button class="btn btn-default" {{action "submitTrack"}} name="save" value="Add Track">Add Track</button>
     </div>
 </div>
 
