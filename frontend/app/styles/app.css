@@ -1,3 +1,6 @@
 .durationField {
     width: 60px;
 }
+th {
+    background-color: #fff;
+}
