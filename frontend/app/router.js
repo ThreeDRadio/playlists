@@ -6,9 +6,9 @@ const Router = Ember.Router.extend({
 });
 
 Router.map(function() {
-  this.route('logger', function() {
+  this.route('playlists', function() {
     this.route('index', {path: '/'} );
-    this.route('playlist', {path: '/playlist/:playlist_id' });
+    this.route('playlist', {path: '/:playlist_id' });
   });
 });
 
