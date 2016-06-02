@@ -1,0 +1,69 @@
+<div class="container">
+
+    <h1>Logging Sheet: {{ model.show.name }} <small>{{ model.date }} </small></h1>
+
+    <div class="row">
+    </div>
+
+    <div class="modal fade" id="saveModal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Submit Logging Sheet</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Please ensure your logging sheet is complete and correct before submitting.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Continue Working</button>
+                    <input class="btn btn-primary" type="submit" name="final" value="Submit Logging Sheet">
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <table class="table table-striped table-condensed floathead">
+
+        <thead>
+            <tr>
+                <th colspan="9">
+                    <div class="pull-right">
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#saveModal">
+                            Submit Logging Sheet
+                        </button>
+                        <input class="btn btn-default" type="submit" name="save" value="Save and Continue">
+                    </div>
+                    <h4>
+                        <span id="local_label" class="label label-default">Local: <span id="local_quota"></span></span>
+                        <span id="aus_label" class="label label-default">Australian: <span id="aus_quota"></span></span>
+                        <span id="female_label" class="label label-default">Female: <span id="female_quota"></span></span>
+                    </h4>
+            </th></tr>
+            <tr>
+                <th>#</th><th>Artist</th><th>Track</th><th>Album</th><th>Duration</th><th>Local</th><th>Aus</th><th>Fem</th><th>NR</th>
+            </tr>
+        </thead>
+
+        {{#each model.tracks as |track index|}}
+        <tr >
+            <td>{{one-index index}}</td>
+            <td><div class="{{ track.artist.css_classes }}">{{ track.artist }}</div></td>
+            <td><div class="{{ track.title.css_classes }}">{{ track.title }}</div></td>
+            <td><div class="{{ track.album.css_classes }}">{{ track.album }}</div></td>
+            <td><div class="{{ track.duration.css_classes }}">{{ track.duration }}</div></td>
+            <td><div class="{{ track.local.css_classes }}">{{ track.local }}</div></td>
+            <td><div class="{{ track.australian.css_classes }}">{{ track.australian }}</div></td>
+            <td><div class="{{ track.female.css_classes }}">{{ track.female }}</div></td>
+            <td><div class="{{ track.newRelase.css_classes }}">{{ track.newRelease }}</div></td>
+        </tr>
+
+        {{/each}}
+
+    </table>
+    <div class="pull-right">
+        <input class="btn btn-default" type="submit" name="save" value="Save and Continue">
+    </div>
+</div>
+

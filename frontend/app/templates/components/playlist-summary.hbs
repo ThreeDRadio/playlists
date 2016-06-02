@@ -3,7 +3,7 @@
         <div class="pull-right">
             <ul class="nav nav-pills">
                 <li role="presentation">{{#link-to "playlists.playlist" playlist}}View Tracks{{/link-to}}</li>
-                <li role="presentation"><a href="/logger/playlists/{{playlist.id}}/edit" role="button">Edit Playlist</a></li>
+                <li role="presentation">{{#link-to "playlists.edit" playlist}}Edit Playlist{{/link-to}}</li>
                 <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >
                     Export<span class="caret"></span></a>
