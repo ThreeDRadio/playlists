@@ -13,9 +13,9 @@
         </thead>
 
         <tbody>
-            {{#each model.tracks as |entryform| }}
+            {{#each model.tracks as |entryform index| }}
             <tr>
-                <td>{{ forloop.counter }}</td>
+                <td>{{one-index index}}</td>
                 <td>{{ entryform.artist }}</td>
                 <td>{{ entryform.title }}</td>
                 <td>{{ entryform.album }}</td>
