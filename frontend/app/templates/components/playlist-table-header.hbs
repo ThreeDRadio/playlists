@@ -6,12 +6,11 @@
                         <button type="button" class="btn btn-default" data-toggle="modal" data-target="#saveModal">
                             Submit Logging Sheet
                         </button>
-                        <input class="btn btn-default" type="submit" name="save" value="Save and Continue">
                     </div>
                     <h4>
-                        <span id="local_label" class="label label-default">Local: <span id="local_quota"></span></span>
-                        <span id="aus_label" class="label label-default">Australian: <span id="aus_quota"></span></span>
-                        <span id="female_label" class="label label-default">Female: <span id="female_quota"></span></span>
+                        <span id="local_label" class="{{localQuotaClasses}}">Local: {{localCount}}/{{localExpected}}</span>
+                        <span id="aus_label" class="{{australianQuotaClasses}}">Australian: {{australianCount}}/{{australianExpected}}</span>
+                        <span id="female_label" class="{{femaleQuotaClasses}}">Female: {{femaleCount}}/{{femaleExpected}}</span>
                     </h4>
             </th></tr>
             <tr>
