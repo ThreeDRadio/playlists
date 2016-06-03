@@ -26,6 +26,18 @@ module.exports = function(defaults) {
   app.import('bower_components/moment/moment.js');
   app.import('bower_components/jquery.floatThead/dist/jquery.floatThead.js');
   app.import('bower_components/jquery-ui/jquery-ui.js');
+  app.import('bower_components/jquery-ui/themes/smoothness/jquery-ui.css');
   app.import('bower_components/bootstrap/dist/fonts/glyphicons-halflings-regular.woff2', {destDir: '/fonts'});
+
+  // fucking import doesn't support globs by design
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_flat_75_ffffff_40x100.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png', {destDir: '/assets/images'});
+
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_glass_75_e6e6e6_1x400.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-icons_222222_256x240.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_glass_55_fbf9ee_1x400.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_glass_75_dadada_1x400.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-bg_glass_65_ffffff_1x400.png', {destDir: '/assets/images'});
+  app.import('bower_components/jquery-ui/themes/smoothness/images/ui-icons_454545_256x240.png', {destDir: '/assets/images'});
   return app.toTree();
 };
