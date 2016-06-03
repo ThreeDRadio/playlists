@@ -9,5 +9,6 @@ export default Model.extend({
     defaultHost: attr('string'),
     startTime: attr('string'),
     endTime: attr('string'),
+    notes: attr('string'),
     playlists: hasMany('playlist')
 });

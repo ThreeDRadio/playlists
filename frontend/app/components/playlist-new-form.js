@@ -25,6 +25,11 @@ export default Ember.Component.extend({
             this.get('host') !== undefined && this.get('host') !== "" &&
             this.get('date') !== undefined && this.get('date') !== "") {
 
+            this.get('createAction') (this.get('selectedShow'),
+                                     this.get('host'),
+                                     this.get('date'),
+                                     this.getWithDefault('notes', ''));
+
         }
         else {
             alert("no show");
