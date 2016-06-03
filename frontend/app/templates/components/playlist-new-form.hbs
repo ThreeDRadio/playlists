@@ -1,0 +1,26 @@
+<div class="form-group">
+    <label for="show">Show</label>
+    <select onchange={{action selectShow value="target.value"}} class="form-control" name="show">
+        <option value="---">---</option>
+        {{#each sortedShows as |show|}}
+        <option value={{show.id}}>{{show.name}}</option>
+        {{/each}}
+    </select>
+</div>
+<div class="form-group">
+    <label for="host">Host</label>
+    {{input class="form-control" value=host name="host"}}
+</div>
+<div class="form-group">
+    <label for="date">Date</label>
+    <div class="input-group">
+        <div class="input-group-addon">
+            <span class="glyphicon glyphicon-calendar"></span>
+        </div>
+        {{input class="form-control date-picker" value=date name="date"}}
+    </div>
+</div>
+
+<div class="pull-right">
+    <button class="btn btn-primary" {{action createPlaylist}} name="save">Let's Go</button>
+</div>
