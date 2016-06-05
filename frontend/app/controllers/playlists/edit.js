@@ -3,8 +3,9 @@ import Ember from 'ember';
 export default Ember.Controller.extend({
 
     isValidTime(v) {
-        if (v === "")
+        if (v === "") {
             return true;
+        }
         return true;
     },
 
@@ -13,7 +14,7 @@ export default Ember.Controller.extend({
             let artist = this.getWithDefault('artist', "").trim();
             let track  = this.getWithDefault('track', "").trim();
             let album  = this.getWithDefault('album', "").trim();
-            let duration = this.getWithDefault('duration', "").trim()
+            let duration = this.getWithDefault('duration', "").trim();
 
             if (artist.length > 0 && track.length > 0 && album.length > 0 && this.isValidTime(duration)) {
                 let entry = this.store.createRecord('playlistentry', {

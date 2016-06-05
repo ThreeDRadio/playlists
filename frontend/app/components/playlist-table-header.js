@@ -27,10 +27,10 @@ export default Ember.Component.extend({
     }),
 
     localQuotaClasses: Ember.computed('model.tracks.@each.local', function() {
-        const normal = "label label-default"
-        const good = "label label-success"
-        const warning = "label label-warning"
-        const bad = "label label-danger"
+        const normal = "label label-default";
+        const good = "label label-success";
+        const warning = "label label-warning";
+        const bad = "label label-danger";
 
         if (this.get('model').get('tracks').get('length') <= 0) {
             return normal;
@@ -48,10 +48,10 @@ export default Ember.Component.extend({
         }
     }),
     australianQuotaClasses: Ember.computed('model.tracks.@each.australian', function() {
-        const normal = "label label-default"
-        const good = "label label-success"
-        const warning = "label label-warning"
-        const bad = "label label-danger"
+        const normal = "label label-default";
+        const good = "label label-success";
+        const warning = "label label-warning";
+        const bad = "label label-danger";
 
         if (this.get('model').get('tracks').get('length') <= 0) {
             return normal;
@@ -69,10 +69,10 @@ export default Ember.Component.extend({
         }
     }),
     femaleQuotaClasses: Ember.computed('model.tracks.@each.female', function() {
-        const normal = "label label-default"
-        const good = "label label-success"
-        const warning = "label label-warning"
-        const bad = "label label-danger"
+        const normal = "label label-default";
+        const good = "label label-success";
+        const warning = "label label-warning";
+        const bad = "label label-danger";
 
         if (this.get('model').get('tracks').get('length') <= 0) {
             return normal;
