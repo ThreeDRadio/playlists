@@ -9,5 +9,9 @@ export default Ember.Route.extend({
         page: {
             refreshModel: true
         }
+    },
+
+    afterModel() {
+        Ember.$(document).attr('title', "Recent Playlists");
     }
 });
