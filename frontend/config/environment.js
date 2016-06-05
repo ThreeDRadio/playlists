@@ -26,6 +26,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     ENV.APP.API_HOST = 'http://192.168.1.64:8000';
+    ENV.backendBaseURL = 'http://192.168.1.64:8000/logger/';
   }
 
   if (environment === 'test') {
