@@ -12,3 +12,7 @@ tr.playlistentry:hover .buttons {
     opacity: 1.0;
 }
 
+button.btn-playlist-add {
+    width: 65px;
+}
+

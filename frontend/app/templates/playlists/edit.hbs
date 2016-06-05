@@ -40,7 +40,7 @@
             <td align="center">{{#if track.australian }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
             <td align="center">{{#if track.female }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
             <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
-            <td align="right" class="buttons">
+            <td align="right" class="buttons" width="65">
                 <button class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span></button> 
                 <button class="btn btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
@@ -51,7 +51,7 @@
             <td>{{input enter="submitTrack" class="form-control input-sm" id="new-track-artist-field" value=artist name="artist" placeholder="Artist"}}</td>
             <td>{{input enter="submitTrack" class="form-control input-sm" value=track name="track" placeholder="Track"}}</td>
             <td>{{input enter="submitTrack" class="form-control input-sm" value=album name="album" placeholder="Album"}}</td>
-            <td>{{input enter="submitTrack" class="form-control input-sm durationField" value=duration width="6" name="duration" placeholder="MM:SS"}}</td>
+            <td align="right">{{input enter="submitTrack" class="form-control input-sm durationField" value=duration width="6" name="duration" placeholder="MM:SS"}}</td>
             <td align="center">
                 {{input key-press="submitTrack" checked=local type="checkbox" name=local}}
             </td>
@@ -59,7 +59,7 @@
             <td align="center">{{input action="submitTrack" checked=female type="checkbox" name=female}}</td>
             <td align="center">{{input action="submitTrack" checked=newRelease type="checkbox" name=newRelease}}</td>
             <td align="right">
-                <button class="btn btn-sm btn-success" {{action "submitTrack"}}><span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-xs btn-success btn-playlist-add" {{action "submitTrack"}}><span class="glyphicon glyphicon-plus"></span></button>
             </td>
         </tr>
 
