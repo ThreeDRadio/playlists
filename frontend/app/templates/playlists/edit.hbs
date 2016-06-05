@@ -42,12 +42,12 @@
             <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
         </tr>
         {{/each}}
-        <tr {{action "submitTrack" on="enter"}}>
+        <tr>
             <td>+</td>
-            <td>{{input action="submitTrack" class="form-control input-sm" value=artist name="artist" placeholder="Artist"}}</td>
-            <td>{{input action="submitTrack" class="form-control input-sm" value=track name="track" placeholder="Track"}}</td>
-            <td>{{input action="submitTrack" class="form-control input-sm" value=album name="album" placeholder="Album"}}</td>
-            <td>{{input action="submitTrack" class="form-control input-sm durationField" value=duration width="6" name="duration" placeholder="MM:SS"}}</td>
+            <td>{{input enter="submitTrack" class="form-control input-sm" id="new-track-artist-field" value=artist name="artist" placeholder="Artist"}}</td>
+            <td>{{input enter="submitTrack" class="form-control input-sm" value=track name="track" placeholder="Track"}}</td>
+            <td>{{input enter="submitTrack" class="form-control input-sm" value=album name="album" placeholder="Album"}}</td>
+            <td>{{input enter="submitTrack" class="form-control input-sm durationField" value=duration width="6" name="duration" placeholder="MM:SS"}}</td>
             <td align="center">
                 {{input key-press="submitTrack" checked=local type="checkbox" name=local}}
             </td>

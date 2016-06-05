@@ -30,6 +30,7 @@ export default Ember.Controller.extend({
                     });
                     entry.save().then( function() {
                         window.scrollTo(0, document.body.scrollHeight);
+                        Ember.$("#new-track-artist-field").focus();
                     });
                 this.setProperties({artist: '', track: '', album: '', duration: '', local: false, australian: false, female: false, newRelease: false});
                 
