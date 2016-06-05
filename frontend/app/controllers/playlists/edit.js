@@ -38,6 +38,19 @@ export default Ember.Controller.extend({
             else {
 
             }
+        },
+
+        deleteTrack(track) {
+            track.destroyRecord();
+        },
+
+        submitPlaylist() {
+            $('#saveModal').modal('hide');
+            this.model.set('complete', true);
+            self = this;
+            this.model.save().then(function()  {
+                self.transitionToRoute('playlists.index');
+            });
         }
     }
 });

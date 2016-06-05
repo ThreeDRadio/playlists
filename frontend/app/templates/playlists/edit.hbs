@@ -17,7 +17,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Continue Working</button>
-                    <input class="btn btn-primary" type="submit" name="final" value="Submit Logging Sheet">
+                    <input class="btn btn-primary" {{action "submitPlaylist"}} type="submit" name="final" value="Submit Logging Sheet">
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -42,7 +42,7 @@
             <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
             <td align="right" class="buttons" width="65">
                 <button class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span></button> 
-                <button class="btn btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
+                <button class="btn btn-xs"><span {{action "deleteTrack" track}} class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
         {{/each}}
