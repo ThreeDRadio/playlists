@@ -30,7 +30,7 @@
         <tbody>
 
         {{#each model.tracks as |track index|}}
-        <tr >
+        <tr class="playlistentry">
             <td>{{one-index index}}</td>
             <td>{{ track.artist }}</td>
             <td>{{ track.title }}</td>
@@ -40,7 +40,9 @@
             <td align="center">{{#if track.australian }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
             <td align="center">{{#if track.female }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
             <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
-            <td align="right">
+            <td align="right" class="buttons">
+                <button class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span></button> 
+                <button class="btn btn-xs"><span class="glyphicon glyphicon-remove"></span></button>
             </td>
         </tr>
         {{/each}}

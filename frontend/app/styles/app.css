@@ -4,3 +4,11 @@
 th {
     background-color: #fff;
 }
+
+tr.playlistentry .buttons {
+    opacity: 0.0;
+}
+tr.playlistentry:hover .buttons {
+    opacity: 1.0;
+}
+
