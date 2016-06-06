@@ -3,7 +3,9 @@
         <div class="pull-right">
             <ul class="nav nav-pills">
                 <li role="presentation">{{#link-to "playlists.playlist" playlist}}View Tracks{{/link-to}}</li>
+                {{#unless playlist.complete}}
                 <li role="presentation">{{#link-to "playlists.edit" playlist}}Edit Playlist{{/link-to}}</li>
+                {{/unless}}
                 <li role="presentation" class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" >
                     Export<span class="caret"></span></a>
