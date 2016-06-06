@@ -35,12 +35,7 @@
                     Statistics 
                 </div>
                 <div class="panel-body">
-                    <canvas id="showStats" width="500" height="400">
-                    <b>total songs:</b> {{ songcount }} <br>
-                    <b>unique artists:</b> {{ artists }} <br>
-                    <b>Local:</b> {{ local }} <br>
-                    <b>Australian: </b> {{ australian }} <br>
-                    <b>Female: </b> {{ female }} <br></canvas>
+                    {{bar-graph data=model.statistics}}
                 </div>
             </div>
 
