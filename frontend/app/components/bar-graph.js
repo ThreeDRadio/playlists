@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 
     didInsertElement() {
         Chart.defaults.global.responsive = true;
-        Chart.defaults.global.legend.display =false
+        Chart.defaults.global.legend.display =false;
     },
 
 
@@ -16,7 +16,7 @@ export default Ember.Component.extend({
             datasets: [{
                 data: []
             }]
-        }
+        };
 
         data.forEach(item => {
             toGraph.labels.push(item.get('name'));
@@ -35,8 +35,8 @@ export default Ember.Component.extend({
                     ]
                 }
             }
-        }
-        let ctx = this.$().children(".bar-chart").first();//.getContext('2d');
+        };
+        let ctx = this.$().children(".bar-chart").first();
         let statsChart = new Chart(ctx, options);
     }
 });
