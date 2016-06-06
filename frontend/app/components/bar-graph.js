@@ -36,7 +36,6 @@ export default Ember.Component.extend({
                 }
             }
         }
-        console.log(this.elementId);
         let ctx = this.$().children(".bar-chart").first();//.getContext('2d');
         let statsChart = new Chart(ctx, options);
     }
