@@ -47,7 +47,7 @@ export default Ember.Controller.extend({
         submitPlaylist() {
             $('#saveModal').modal('hide');
             this.model.set('complete', true);
-            self = this;
+            let self = this;
             this.model.save().then(function()  {
                 self.transitionToRoute('playlists.index');
             });
