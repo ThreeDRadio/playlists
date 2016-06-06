@@ -10,5 +10,6 @@ export default Model.extend({
     startTime: attr('string'),
     endTime: attr('string'),
     notes: attr('string'),
-    playlists: hasMany('playlist')
+    playlists: hasMany('playlist'),
+    topartists: hasMany('topArtist')
 });
