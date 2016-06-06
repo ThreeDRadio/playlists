@@ -1,0 +1,57 @@
+<div class="container">
+
+    <h1>{{model.name}}</h1>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Most played artists
+                </div>
+                <div class="panel-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Artist</th><th>Plays</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            {{#each model.topartists as |artist| }}
+                            <tr><td>{{ forloop.counter }}</td><td>{{ artist.artist }}</td><td>{{ artist.plays }}</td></tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Statistics 
+                </div>
+                <div class="panel-body">
+                    <canvas id="showStats" width="500" height="400">
+                    <b>total songs:</b> {{ songcount }} <br>
+                    <b>unique artists:</b> {{ artists }} <br>
+                    <b>Local:</b> {{ local }} <br>
+                    <b>Australian: </b> {{ australian }} <br>
+                    <b>Female: </b> {{ female }} <br></canvas>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {{#each model.playlists as |playlist|}}
+
+        {{playlist-summary playlist=playlist }}
+
+    {{/each}}
+
+</div>

@@ -11,6 +11,7 @@ Router.map(function() {
     this.route('playlist', {path: '/:playlist_id' });
     this.route('edit', {path: '/:playlist_id/edit'});
     this.route('new');
+    this.route('show', {path: '/shows/:show_id'});
   });
 });
 
