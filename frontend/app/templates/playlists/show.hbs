@@ -19,8 +19,8 @@
                         </thead>
                         <tbody>
 
-                            {{#each model.topartists as |artist| }}
-                            <tr><td>{{ forloop.counter }}</td><td>{{ artist.artist }}</td><td>{{ artist.plays }}</td></tr>
+                            {{#each model.topartists as |artist index| }}
+                            <tr><td>{{one-index index}}</td><td>{{ artist.artist }}</td><td>{{ artist.plays }}</td></tr>
                             {{/each}}
                         </tbody>
                     </table>
