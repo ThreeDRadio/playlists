@@ -45,7 +45,7 @@ export default Ember.Controller.extend({
         },
 
         submitPlaylist() {
-            $('#saveModal').modal('hide');
+            Ember.$('#saveModal').modal('hide');
             this.model.set('complete', true);
             let self = this;
             this.model.save().then(function()  {

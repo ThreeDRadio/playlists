@@ -4,8 +4,8 @@ export default Ember.Component.extend({
     tagName: 'canvas',
 
     didInsertElement() {
-        $('.date-picker').datepicker();
-        $('.date-picker').datepicker("option", "dateFormat", "yy-mm-dd");
+        Ember.$('.date-picker').datepicker();
+        Ember.$('.date-picker').datepicker("option", "dateFormat", "yy-mm-dd");
     },
 
     selectShow(value) {

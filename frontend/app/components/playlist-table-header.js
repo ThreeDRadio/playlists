@@ -91,7 +91,7 @@ export default Ember.Component.extend({
     }),
 
     didInsertElement() {
-        $('.floathead').floatThead({
+        Ember.$('.floathead').floatThead({
             position: 'fixed'
         });
     }

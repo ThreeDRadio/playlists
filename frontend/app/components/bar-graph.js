@@ -37,6 +37,6 @@ export default Ember.Component.extend({
             }
         };
         let ctx = this.$().children(".bar-chart").first();
-        let statsChart = new Chart(ctx, options);
+        this.statsChart = new Chart(ctx, options);
     }
 });
