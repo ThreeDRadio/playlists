@@ -1,0 +1,15 @@
+<tr class="playlistentry">
+    <td>{{one-index index}}</td>
+    <td>{{ track.artist }}</td>
+    <td>{{ track.title }}</td>
+    <td>{{ track.album }}</td>
+    <td align="right">{{pretty-duration track.duration }}</td>
+    <td align="center">{{#if track.local }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if}} </td>
+    <td align="center">{{#if track.australian }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+    <td align="center">{{#if track.female }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+    <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
+    <td align="right" class="buttons" width="65">
+        <button class="btn btn-xs"><span class="glyphicon glyphicon-pencil"></span></button> 
+        <button class="btn btn-xs"><span {{action "deleteTrack" track}} class="glyphicon glyphicon-remove"></span></button>
+    </td>
+</tr>
