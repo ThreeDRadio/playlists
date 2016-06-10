@@ -8,8 +8,7 @@ export default Ember.Controller.extend({
 
       let {username, password } = this.getProperties('username', 'password');
       this.get('session').authenticate('authenticator:django-rest', {identification:username, password:password}).catch((reason) => {
-      console.log(reason);
-        this.set('errorMessage', reason.non_field_errors);
+        this.set('errors', reason);
         this.set('username', '');
         this.set('password', '');
       });
