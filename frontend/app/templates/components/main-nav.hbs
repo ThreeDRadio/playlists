@@ -8,7 +8,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="/logger">Three D Logger</a>
+      <a class="navbar-brand" href="/logger">Three D Intranet</a>
     </div>
 
 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -17,6 +17,15 @@
           <li>{{#link-to "playlists.new"}}New Logging Sheet{{/link-to}}</li>
         <li><a href="/logger/today/">Today's Plays<span class="sr-only">(current)</span></a></li>
       </ul>
+    <ul class="nav navbar-nav navbar-right">
+        {{#if session.isAuthenticated}}
+        <li><a {{action 'invalidateSession'}}>Logout</a></li>
+        {{else}}
+        <li>{{#link-to 'login'}}Login{{/link-to}}</li>
+        {{/if}}
+    </ul>
     </div><!-- /.navbar-collapse -->
 </div>
+
+
 </nav>
