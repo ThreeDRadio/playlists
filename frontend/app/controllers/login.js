@@ -12,6 +12,10 @@ export default Ember.Controller.extend({
         this.set('username', '');
         this.set('password', '');
       });
+
+      if (this.get('session').isAuthenticated) {
+        this.transitionToRoute('index');
+      }
     }
 
   }
