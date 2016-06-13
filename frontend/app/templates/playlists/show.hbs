@@ -1,0 +1,51 @@
+<div class="container">
+
+    <h1>{{model.name}}</h1>
+
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Most played artists
+                </div>
+                <div class="panel-body">
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Artist</th><th>Plays</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each model.topartists as |artist index| }}
+                            <tr><td>{{one-index index}}</td><td>{{ artist.artist }}</td><td>{{ artist.plays }}</td></tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    Statistics 
+                </div>
+                <div class="panel-body">
+                    {{bar-graph data=model.statistics}}
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    {{#each model.playlists as |playlist|}}
+
+        {{playlist-summary playlist=playlist }}
+
+    {{/each}}
+
+</div>
