@@ -4,7 +4,7 @@ module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'frontend',
     environment: environment,
-    baseURL: '/',
+    baseURL: '/logger/',
     locationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -48,6 +48,12 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.APP.API_HOST = 'http://intranet.threedradio.com/backend';
+    ENV.backendBaseURL = 'http://intranet.threedradio.com/backend/';
+    ENV['ember-simple-auth'] = {
+        authorizer: 'authorizer:django-rest',
+        serverTokenEndpoint: 'http://intranet.threedradio.com/backend/api-token-auth/',
+        };
 
   }
 
