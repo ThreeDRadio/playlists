@@ -32,6 +32,7 @@
       {{#each model.tracks as |track index|}}
       {{playlist-edit-tablerow track=track index=index deleteAction=(action "deleteTrack")}}
       {{/each}}
+        <tr><td colspan="10"><h4>Add New Track</h4></td></tr>
       <tr>
         <td>+</td>
         <td>{{input enter="submitTrack" class="form-control input-sm" id="new-track-artist-field" value=artist name="artist" placeholder="Artist"}}</td>
