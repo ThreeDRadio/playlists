@@ -27,8 +27,8 @@
     <td align="center">{{#if track.female }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
     <td align="center">{{#if track.newRelease }}<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>{{/if }} </td>
     <td align="right" class="buttons" width="65">
-        <button class="btn btn-xs"><span {{action "editTrack"}} class="glyphicon glyphicon-pencil"></span></button> 
-        <button class="btn btn-xs"><span {{action "deleteTrack"}} class="glyphicon glyphicon-remove"></span></button>
+        <button class="btn btn-xs" {{action "editTrack"}}   ><span class="glyphicon glyphicon-pencil"></span></button> 
+        <button class="btn btn-xs" {{action "deleteTrack"}} ><span class="glyphicon glyphicon-remove"></span></button>
     </td>
     {{/if}}
 </tr>
