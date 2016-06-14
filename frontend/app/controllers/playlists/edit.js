@@ -4,9 +4,9 @@ export default Ember.Controller.extend({
 
     isValidTime(v) {
         if (v === "") {
-            return true;
+            return false;
         }
-        return true;
+        return /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/.test(v);
     },
 
     actions: {
@@ -16,7 +16,11 @@ export default Ember.Controller.extend({
             let album  = this.getWithDefault('album', "").trim();
             let duration = this.getWithDefault('duration', "").trim();
 
-            if (artist.length > 0 && track.length > 0 && album.length > 0 && this.isValidTime(duration)) {
+            if (!this.isValidTime(duration)) {
+              duration = "0:00";
+            }
+
+            if (artist.length > 0 && track.length > 0 && album.length > 0) {
                 let entry = this.store.createRecord('playlistentry', {
                     artist: artist,
                     title: track,
