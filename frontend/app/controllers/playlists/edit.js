@@ -28,10 +28,10 @@ export default Ember.Controller.extend({
                     newRelease: this.getWithDefault('newRelease', false),
                     playlist: this.model
                     });
-                    entry.save().then( function() {
+                    entry.save().then( (entry) => {
                         window.scrollTo(0, document.body.scrollHeight);
                         Ember.$("#new-track-artist-field").focus();
-                        this.setProperties({artist: '', track: '', album: '', duration: '', local: false, australian: false, female: false, newRelease: false});
+                        this.setProperties({errors: null, artist: '', track: '', album: '', duration: '', local: false, australian: false, female: false, newRelease: false});
                     }).catch( (failure) => {
                       entry.deleteRecord();
                       this.set('errors', failure);
