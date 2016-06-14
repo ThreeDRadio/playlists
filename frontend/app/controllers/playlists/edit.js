@@ -33,6 +33,7 @@ export default Ember.Controller.extend({
                         Ember.$("#new-track-artist-field").focus();
                         this.setProperties({artist: '', track: '', album: '', duration: '', local: false, australian: false, female: false, newRelease: false});
                     }).catch( (failure) => {
+                      entry.deleteRecord();
                       this.set('errors', failure);
                     });
                 
