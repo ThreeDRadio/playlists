@@ -7,11 +7,7 @@
                             Submit Logging Sheet
                         </button>
                     </div>
-                    <h4>
-                        <span id="local_label" class="{{localQuotaClasses}}">Local: {{localCount}}/{{localExpected}}</span>
-                        <span id="aus_label" class="{{australianQuotaClasses}}">Australian: {{australianCount}}/{{australianExpected}}</span>
-                        <span id="female_label" class="{{femaleQuotaClasses}}">Female: {{femaleCount}}/{{femaleExpected}}</span>
-                    </h4>
+                    {{playlist-quota-pills model=model}}
             </th></tr>
             <tr>
                 <th>#</th><th>Artist</th><th>Track</th><th>Album</th><th>Duration</th><th>Local</th><th>Aus</th><th>Fem</th><th>NR</th><th></th>

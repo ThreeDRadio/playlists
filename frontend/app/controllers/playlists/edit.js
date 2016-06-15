@@ -48,7 +48,13 @@ export default Ember.Controller.extend({
         },
 
         deleteTrack(track) {
-            track.destroyRecord();
+            this.get('deleteCandidate').destroyRecord();
+            Ember.$('#deleteModal').modal('hide');
+        },
+
+        confirmDelete(track) {
+            this.set('deleteCandidate', track);
+            Ember.$('#deleteModal').modal();
         },
 
         submitPlaylist() {

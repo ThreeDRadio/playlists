@@ -5,7 +5,9 @@ from django.forms.models import modelformset_factory
 from django.contrib import messages
 import django_filters
 from rest_framework import filters
+from rest_framework import generics
 from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.views import APIView
 from rest_framework.decorators import list_route, detail_route
 from rest_framework.response import Response
@@ -16,7 +18,7 @@ from django.db.models import Count
 
 from .forms import NewPlaylistForm, PlaylistEntryForm, SummaryReportForm
 from .models import Playlist, PlaylistEntry, Cd, Cdtrack, Show
-from serializers import ReleaseSerializer, TrackSerializer, ShowSerializer, PlaylistSerializer, PlaylistEntrySerializer, TopArtistSerializer, ShowStatisticsSerializer
+from serializers import ReleaseSerializer, TrackSerializer, ShowSerializer, PlaylistSerializer, PlaylistEntrySerializer, TopArtistSerializer, ShowStatisticsSerializer, PlayCountSerializer
 
 import logging
 
@@ -57,26 +59,38 @@ def today(request):
 def summary(request):
     startDate = request.GET.get('startDate', date.min)
     endDate = request.GET.get('endDate', date.max)
-    playlists = Playlist.objects.filter(date__range=(startDate, endDate))
+    reportFormat = request.GET.get('format')
+
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = 'attachment; filename="play_summary.csv"'
 
-    out = csv.writer(response)
-    out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album','duration',
-                  'local', 'australian', 'female', 'new release'])
+    if reportFormat == "top20":
+        playlists = Playlist.objects.filter(date__range=(startDate, endDate))
+        out = csv.writer(response)
+        out.writerow(['show', 'date', 'start time', 'artist', 'track', 'album',
+                      'local', 'australian', 'female', 'new release'])
 
-    for playlist in playlists:
-        if playlist.show is None:
-            showname = playlist.showname
-            startTime = '0:00'
-        else:
-            showname = playlist.show.name
-            startTime = playlist.show.startTime
+        for playlist in playlists:
+            if playlist.show is None:
+                showname = playlist.showname
+                startTime = '0:00'
+            else:
+                showname = playlist.show.name
+                startTime = playlist.show.startTime
 
-        for track in playlist.playlistentry_set.all():
-            out.writerow(
-                [showname, playlist.date, startTime, track.artist, track.title, track.album, track.duration, track.local, track.australian,
-                 track.female, track.newRelease])
+            for track in playlist.tracks.all():
+                out.writerow(
+                    [showname, playlist.date, startTime, track.artist, track.title, track.album, track.local, track.australian,
+                     track.female, track.newRelease])
+
+    else:
+        out = csv.writer(response)
+        out.writerow(['Title of Work', 'Composer/Arranger', 'Artist', 'Record Label', 'Total No Usages Per Week', 'Duration',
+                      'APRA use only'])
+        songs = PlaylistEntry.objects.filter(playlist__date__range=(startDate, endDate)).values('artist', 'title', 'duration').annotate(plays=Count('duration')).order_by('artist','title', '-plays')
+
+        for song in songs:
+            out.writerow([song['title'], '', song['artist'], '', song['plays'], song['duration'], ''])
 
     return response
 
@@ -133,7 +147,7 @@ def playlist(request, playlist_id):
             out = csv.writer(response)
             out.writerow(['artist', 'track', 'album', 'local', 'australian', 'female', 'new release'])
 
-            for track in playlist.playlistentry_set.all():
+            for track in playlist.tracks.all():
                 out.writerow([track.artist, track.title, track.album, track.local, track.australian, track.female,
                               track.newRelease])
             return response
@@ -207,7 +221,7 @@ def reports(request):
         form = SummaryReportForm(request.POST)
         if form.is_valid():
             return HttpResponseRedirect('/logger/summary/?startDate=' + unicode(form.cleaned_data.get('startDate')) +
-                                        '&endDate=' + unicode(form.cleaned_data.get('endDate')))
+                                        '&endDate=' + unicode(form.cleaned_data.get('endDate')) + '&format=' + unicode(form.cleaned_data.get('reportFormat')))
     else:
         form = SummaryReportForm()
     context = RequestContext(request, {
@@ -322,6 +336,17 @@ class PlaylistViewSet(viewsets.ModelViewSet):
 class PlaylistEntryViewSet(viewsets.ModelViewSet):
     queryset = PlaylistEntry.objects.all()
     serializer_class = PlaylistEntrySerializer
+
+    @list_route()
+    def today(self, request):
+        queryset = PlaylistEntry.objects.filter(playlist__date=date.today()).values('artist', 'title', 'album').annotate(plays=Count('title')).order_by('artist', '-plays')
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = PlayCountSerializer(page, context={'request': request}, many=True)
+            return self.get_paginated_response(serializer.data)
+        serializer = PlayCountSerializer(queryset, many=True)
+        return Response(serializer.data)
+
 
 class ArtistViewSet(viewsets.ViewSet):
     filter_backends = (filters.SearchFilter,)
