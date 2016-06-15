@@ -1,1 +1,29 @@
-{{outlet}}
+
+<div class="container">
+  <h2>Today's Plays</h2>
+
+
+    <table class="table table-striped table-condensed">
+
+        <thead>
+            <tr>
+                <th>#</th><th>Artist</th><th>Album</th><th>Track</th><th>Plays</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {{#each model.results as |entryform index| }}
+            <tr>
+                <td>{{one-index index}}</td>
+                <td>{{ entryform.artist }}</td>
+                <td>{{ entryform.album }}</td>
+                <td>{{ entryform.title }}</td>
+                <td>{{ entryform.plays}}</td>
+            </tr>
+            {{/each }}
+        </tbody>
+
+
+    </table>
+
+</div>
