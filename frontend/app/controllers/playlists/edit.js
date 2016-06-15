@@ -10,6 +10,9 @@ export default Ember.Controller.extend({
   },
 
 
+  getNextIndex() {
+    return this.get('model.tracks').get('length') + 1;
+  },
 
 
   actions: {
@@ -18,6 +21,7 @@ export default Ember.Controller.extend({
       let track  = this.getWithDefault('track', "").trim();
       let album  = this.getWithDefault('album', "").trim();
       let duration = this.getWithDefault('duration', "").trim();
+      let index = this.getNextIndex();
 
       if (!this.isValidTime(duration)) {
         duration = "0:00";
@@ -29,6 +33,7 @@ export default Ember.Controller.extend({
           title: track,
           album: album,
           duration: duration, 
+          index: index,
           local: this.getWithDefault('local', false),
           australian: this.getWithDefault('australian', false),
           female: this.getWithDefault('female', false),
