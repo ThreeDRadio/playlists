@@ -1,10 +1,11 @@
-<tr class="playlistentry">
+<tr class="playlistentry" data-id="{{unbound track.id}}">
 
-  {{#if editMode}}
   {{#if track.index}}<td>{{track.index}}</td>
   {{else}}
   <td>{{one-index index}}</td>
   {{/if}}
+
+  {{#if editMode}}
   <td>{{input class="form-control input-sm"  value=track.artist name="artist" placeholder="Artist"}}</td>
   <td>{{input class="form-control input-sm" value=track.title name="track" placeholder="Track"}}</td>
   <td>{{input class="form-control input-sm" value=track.album name="album" placeholder="Album"}}</td>
@@ -20,10 +21,6 @@
   </td>
   {{else}}
 
-  {{#if track.index}}<td>{{track.index}}</td>
-  {{else}}
-  <td>{{one-index index}}</td>
-  {{/if}}
   <td>{{ track.artist }}</td>
   <td>{{ track.title }}</td>
   <td>{{ track.album }}</td>
