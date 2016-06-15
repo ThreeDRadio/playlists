@@ -14,9 +14,11 @@ export default Ember.Component.extend({
   updateSortedOrder: function(indices) {
     this.beginPropertyChanges();
     let tracks = this.get('model.tracks').forEach((track) => {
-      var index = indices[track.get('id')];
-      track.set('index',index+1);
-      track.save();
+      var index = indices[track.get('id')] +1;
+      if (track.get('index') !== index) {
+        track.set('index',index+1);
+        track.save();
+      }
     });
     this.endPropertyChanges();
   },
