@@ -15,7 +15,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
           <li>{{#link-to "playlists.new"}}New Logging Sheet{{/link-to}}</li>
-        <li><a href="/logger/today/">Today's Plays<span class="sr-only">(current)</span></a></li>
+          <li>{{#link-to "playlists.today"}}Today's Plays{{/link-to}}</li>
       </ul>
     <ul class="nav navbar-nav navbar-right">
         {{#if session.isAuthenticated}}
