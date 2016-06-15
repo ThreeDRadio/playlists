@@ -46,11 +46,9 @@
 
     {{playlist-table-header model=model}}
 
-    <tbody>
+    {{playlist-edit-table-body model=model deleteAction=(action "confirmDelete")}}
 
-      {{#each model.tracks as |track index|}}
-      {{playlist-edit-tablerow track=track index=index deleteAction=(action "confirmDelete")}}
-      {{/each}}
+    <tfoot>
         <tr><td colspan="10"><h4>Add New Track</h4></td></tr>
       <tr>
         <td>+</td>
@@ -69,7 +67,7 @@
         </td>
       </tr>
 
-    </tbody>
+    </tfoot>
   </table>
   {{#if errors }}
   <div class="alert alert-danger" role="alert"><b>Error:</b> Could not save track! Make sure you have entered an Artist, Track, and Album. If you entered a track duration, make sure it is formatted like this: MM:SS</div>
