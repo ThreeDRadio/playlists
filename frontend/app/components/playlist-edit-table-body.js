@@ -16,7 +16,7 @@ export default Ember.Component.extend({
     let tracks = this.get('model.tracks').forEach((track) => {
       var index = indices[track.get('id')] +1;
       if (track.get('index') !== index) {
-        track.set('index',index+1);
+        track.set('index',index);
         track.save();
       }
     });
