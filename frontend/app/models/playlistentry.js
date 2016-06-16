@@ -5,6 +5,9 @@ import attr from 'ember-data/attr';
 export default Model.extend({
 
   playlist: belongsTo('playlist'),
+
+  index: attr('number'),
+
   artist: attr('string'),
   album: attr('string'),
   title: attr('string'),

@@ -1,0 +1,7 @@
+<tbody id="tracklisting">
+
+  {{#each model.tracks as |track index|}}
+  {{playlist-edit-tablerow track=track index=index deleteAction=deleteAction}}
+  {{/each}}
+
+</tbody>
