@@ -1,4 +1,4 @@
-import ENV from 'frontend/config/environment'
+import ENV from 'frontend/config/environment';
 
 export function initialize(/* application */) {
     // application.inject('route', 'foo', 'service:foo');

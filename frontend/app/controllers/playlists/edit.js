@@ -40,7 +40,7 @@ export default Ember.Controller.extend({
           newRelease: this.getWithDefault('newRelease', false),
           playlist: this.model
         });
-        entry.save().then( (entry) => {
+        entry.save().then( () => {
           window.scrollTo(0, document.body.scrollHeight);
           Ember.$("#new-track-artist-field").focus();
           this.setProperties({errors: null, artist: '', track: '', album: '', duration: '', local: false, australian: false, female: false, newRelease: false});
@@ -55,7 +55,7 @@ export default Ember.Controller.extend({
       }
     },
 
-    deleteTrack(track) {
+    deleteTrack() {
       this.get('deleteCandidate').destroyRecord();
       Ember.$('#deleteModal').modal('hide');
     },
