@@ -26,3 +26,10 @@ test('one-index ignores what it does not understand', function(assert) {
   result = oneIndex([""]);
   assert.strictEqual(result, "");
 });
+
+test("one-index returns empty string if called with no arguments", function(assert) {
+
+  let result = oneIndex([]);
+  assert.strictEqual(result, "");
+
+});
