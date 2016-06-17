@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:logger/playlist', 'Unit | Route | logger/playlist', {
+moduleFor('route:playlists', 'Unit | Route | playlists', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });
