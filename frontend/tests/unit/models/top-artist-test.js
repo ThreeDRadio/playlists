@@ -6,7 +6,9 @@ moduleForModel('top-artist', 'Unit | Model | top artist', {
 });
 
 test('it exists', function(assert) {
-  let model = this.subject();
+  let model = this.subject({artist: "Some Band", plays: 5});
   // let store = this.store();
   assert.ok(!!model);
+  assert.equal(model.get('artist'), "Some Band");
+  assert.equal(model.get('plays'), 5);
 });
