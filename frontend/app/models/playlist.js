@@ -10,7 +10,7 @@ export default Model.extend({
     host: attr('string'),
     date: attr('string'),
     notes: attr('string'),
-    complete: attr('boolean'),
+    complete: attr('boolean', {defaultValue: false}),
     tracks: hasMany('playlistentry', {inverse: 'playlist'})
   
 });
