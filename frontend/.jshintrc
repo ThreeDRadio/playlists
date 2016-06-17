@@ -2,7 +2,9 @@
   "predef": [
     "document",
     "window",
-    "-Promise"
+    "-Promise",
+    "Chart",
+    "moment"
   ],
   "browser": true,
   "boss": true,
@@ -29,4 +31,5 @@
   "eqnull": true,
   "esnext": true,
   "unused": true
+
 }
