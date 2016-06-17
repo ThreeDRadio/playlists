@@ -11,10 +11,10 @@ export default Model.extend({
   artist: attr('string'),
   album: attr('string'),
   title: attr('string'),
-  duration: attr('string'),
+  duration: attr('string', {defaultValue: "0:00"}),
   
-  local: attr('boolean'),
-  australian: attr('boolean'),
-  female: attr('boolean'),
-  newRelease: attr('boolean'),
+  local: attr('boolean', {defaultValue: false}),
+  australian: attr('boolean', {defaultValue: false}),
+  female: attr('boolean', {defaultValue: false}),
+  newRelease: attr('boolean', {defaultValue: false}),
 });
