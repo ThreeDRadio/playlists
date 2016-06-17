@@ -6,7 +6,9 @@ moduleForModel('statistic', 'Unit | Model | statistic', {
 });
 
 test('it exists', function(assert) {
-  let model = this.subject();
+  let model = this.subject({name: "Stat", value: 5});
   // let store = this.store();
   assert.ok(!!model);
+  assert.equal(model.get('name'), "Stat");
+  assert.equal(model.get('value'), 5);
 });
