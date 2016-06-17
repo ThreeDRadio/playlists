@@ -10,8 +10,25 @@ test('it exists', function(assert) {
   // let store = this.store();
   assert.ok(!!model);
 });
+
 test('Default duration', function(assert) {
   let model = this.subject();
   // let store = this.store();
   assert.equal(model.get('duration'), "0:00");
+});
+
+test('Quotas false by default', function(assert) {
+  let model = this.subject();
+  assert.equal(model.get('local'), false);
+  assert.equal(model.get('australian'), false);
+  assert.equal(model.get('female'), false);
+  assert.equal(model.get('newRelease'), false);
+});
+
+test('Has a parent', function(assert) {
+  let PlaylistEntry = this.store().modelFor('playlistentry');
+  let relationship = Ember.get(PlaylistEntry, 'relationshipsByName').get('playlist');
+
+  assert.equal(relationship.key, 'playlist');
+  assert.equal(relationship.kind, 'belongsTo');
 });
