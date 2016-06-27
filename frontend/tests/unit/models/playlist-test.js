@@ -1,4 +1,5 @@
 import { moduleForModel, test } from 'ember-qunit';
+import Ember from 'ember';
 
 moduleForModel('playlist', 'Unit | Model | playlist', {
   // Specify the other units that are required for this test.
