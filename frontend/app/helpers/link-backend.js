@@ -1,7 +1,7 @@
 import Ember from 'ember';
 import ENV from '../config/environment';
 
-export function linkBackend(params/*, hash*/) {
+export function linkBackend() {
   return ENV.backendBaseURL;
 }
 
