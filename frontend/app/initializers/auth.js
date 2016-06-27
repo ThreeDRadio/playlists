@@ -7,7 +7,7 @@ export function initialize(/* application */) {
 export default {
     name: 'auth',
     before: 'django-rest-auth',
-    initialize: function(container, application) {
+    initialize: function() {
         window.ENV = ENV;
     }
 };
