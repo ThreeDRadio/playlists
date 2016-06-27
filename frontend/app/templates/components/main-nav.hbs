@@ -18,8 +18,8 @@
           <li>{{#link-to "playlists.today"}}Today's Plays{{/link-to}}</li>
       </ul>
     <ul class="nav navbar-nav navbar-right">
-        {{#if session.isAuthenticated}}
-        <li>Logged in as {{ session.user }}</li>
+        {{#if session.currentUser}}
+        <li>Logged in as {{ session.currentUser.username}}</li>
         <li><a {{action 'invalidateSession'}}>Logout</a></li>
         {{else}}
         <li>{{#link-to 'login'}}Login{{/link-to}}</li>
