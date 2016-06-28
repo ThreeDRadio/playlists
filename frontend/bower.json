@@ -9,6 +9,7 @@
     "moment": "^2.13.0",
     "jquery.floatThead": "^1.4.1",
     "jquery-ui": "^1.11.4",
-    "Chart.js": "chartjs#^2.1.4"
+    "Chart.js": "chartjs#^2.1.4",
+    "blueimp-md5": "^2.3.0"
   }
 }
