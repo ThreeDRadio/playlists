@@ -3,8 +3,12 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     didInsertElement() {
-        Ember.$('.date-picker').datepicker();
-        Ember.$('.date-picker').datepicker("option", "dateFormat", "yy-mm-dd");
+        Ember.$('#date-picker').datepicker({
+          dateFormat: 'yy-mm-dd'
+        });
+        Ember.$('#date-picker-button').click(function() {
+          Ember.$('#date-picker').focus();
+        });
     },
 
     selectShow(value) {
