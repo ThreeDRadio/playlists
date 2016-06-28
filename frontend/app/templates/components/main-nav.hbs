@@ -24,7 +24,7 @@
       <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown">
         <span class="glyphicon glyphicon-user"></span> 
-        <strong>{{session.currentUser.fullName}}</strong>
+        <strong>{{session.currentUser.username}}</strong>
         <span class="glyphicon glyphicon-chevron-down"></span>
       </a>
       <ul class="dropdown-menu">
@@ -32,16 +32,21 @@
         <div class="navbar-login">
           <div class="row">
             <div class="col-lg-4">
+              {{#if session.currentUser.email}}
+              {{gravatar-image email=session.currentUser.email size=90}}
+              {{else}}
               <p class="text-center">
               <span class="glyphicon glyphicon-user icon-size"></span>
               </p>
+              {{/if}}
             </div>
             <div class="col-lg-8">
-              <p class="text-left"><strong>{{session.currentUser.username}}</strong></p>
-              <p class="text-left small">{{session.currentUser.email}}</p>
-              <p class="text-left">
-              <a href="#" class="btn btn-primary btn-block btn-sm">Actualizar Datos</a>
-              </p>
+              <p class="text-left"><strong>{{session.currentUser.fullName}}</strong></p>
+              <ul>
+                <li>My Favourites</li>
+                <li>My Playlists</li>
+                <li>Settings</li>
+              </ul>
             </div>
           </div>
         </div>
