@@ -9,8 +9,8 @@ export default Model.extend({
   year: attr('number'),
   genre: attr('string'),
   company: attr('string'),
-  country: attr('string'),
-  arrivalDate: attr('date'),
+  cpa: attr('string'),
+  arrivaldate: attr('date'),
 
   local: attr('boolean'),
   demo: attr('boolean'),
