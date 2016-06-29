@@ -16,6 +16,10 @@ Router.map(function() {
     this.route('today');
   });
   this.route('login');
+
+  this.route('catalogue', function() {
+    this.route('latest');
+  });
 });
 
 export default Router;

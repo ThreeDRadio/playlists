@@ -1,0 +1,23 @@
+<h1 class="page-header">New Releases</h1>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Date Arrived</th>
+        <th>Artist</th>
+        <th>Title</th>
+        <th>Country</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model as |release|}}
+        <tr>
+            <td>{{pretty-date release.arrivaldate}}</td>
+            <td>{{release.artist}}</td>
+            <td>{{release.title}}</td>
+            <td>{{release.cpa}}</td>
+        </tr>
+    {{/each}}
+  </tbody>
+</table>
+
