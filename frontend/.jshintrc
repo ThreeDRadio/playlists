@@ -4,7 +4,8 @@
     "window",
     "-Promise",
     "Chart",
-    "moment"
+    "moment",
+    "md5"
   ],
   "browser": true,
   "boss": true,
