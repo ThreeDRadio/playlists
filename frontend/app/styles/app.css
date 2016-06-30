@@ -41,3 +41,10 @@ button.btn-playlist-add {
 .meta-list {
   column-count: 2;
 }
+
+
+.album-art {
+  padding-top: 20px;
+  font-size: 140px;
+
+}
