@@ -20,6 +20,7 @@ Router.map(function() {
   this.route('catalogue', function() {
     this.route('latest');
     this.route('release', {path: '/:release_id'});
+    this.route('search');
   });
 });
 

@@ -1,0 +1,89 @@
+<h1 class="page-header">Search</h1>
+
+<div class="row">
+    {{#if true}}
+    <div class="container" id="basic_search">
+      <div class="form-group form-horizontal">
+        <label for="quicksearch" class="col-sm-2 control-label">Quick Search</label>
+        <div class="col-sm-7">
+          {{input type="text" id="quicksearch" value=searchQuery insert-newline="quickSearch" placeholder="search artist, album, or track" class="form-control"}}
+        </div>
+        <div class="col-sm-1">
+          <button class="btn btn-default">Submit</button>
+        </div>
+      </div>
+    </div>
+
+  {{else}}
+
+  <div class="container " id="advanced_search">
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="artist" class="col-sm-2 control-label">Artist</label>
+        <div class="col-sm-8">
+          {{input type="text" id="artist" value=artist placeholder="Artist" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="track" class="col-sm-2 control-label">Song Title</label>
+        <div class="col-sm-8">
+          {{input type="text" id="track" value=track placeholder="Track" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="release" class="col-sm-2 control-label">Album Title</label>
+        <div class="col-sm-8">
+          {{input type="text" id="album" value=album placeholder="Album" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <p class="col-sm-2 control-label"><strong>Attributes</strong></p>
+        <div class="col-sm-8">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Local
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Female 
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Compilation
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Demo
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  {{/if}}
+</div>
+
+<div class="row">
+
+  <h2>Results</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Results {{count}}</h3>
+    </div>
+    <div class="panel-body">
+      <nav>
+      <ul class="pager">
+
+        {{#if isFirstPage}}
+        <li class="disabled"><a>Previous</a></li>
+        {{else}}
+        <li>{{#link-to (query-params page=prevPage)}}Previous{{/link-to}}</li>
+        {{/if}}
+        {{#if isLastPage}}
+        <li class="disabled"><a>Next</a></li>
+        {{else}}
+        <li>{{#link-to (query-params page=nextPage)}}Next{{/link-to}}</li>
+        {{/if}}
+      </ul>
+      </nav>
+
+    </div>
+  </div>
+</div>
