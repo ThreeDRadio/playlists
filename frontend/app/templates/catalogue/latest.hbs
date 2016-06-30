@@ -1,6 +1,6 @@
 <h1 class="page-header">New Releases</h1>
 
-<table class="table table-striped">
+<table class="table table-hover table-striped">
   <thead>
     <tr>
         <th>Date Arrived</th>
@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     {{#each model as |release|}}
-        <tr>
+      <tr {{action 'gotoRelease' release}}>
             <td>{{pretty-date release.arrivaldate}}</td>
             <td>{{release.artist}}</td>
             <td>{{release.title}}</td>

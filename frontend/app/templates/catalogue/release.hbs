@@ -1,0 +1,67 @@
+<h1 class="page-header">{{model.artist}} - {{model.title}}</h1>
+<h4>
+  <span class="label label-default">{{model.cpa}}</span>
+{{#if model.isLocal}}
+<span class="label label-success">{{model.isLocal}}</span>
+{{/if}}
+
+{{#if model.isFemale}}
+<span class="label label-info">{{model.isFemale}}</span>
+{{/if}}
+
+{{#if model.demo}}
+<span class="label label-default">Demo</span>
+{{/if}}
+
+{{#if model.isCompilation}}
+<span class="label label-warning">Compilation</span>
+{{/if}}
+</h4>
+
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <strong>Release Details</strong>
+    <a role="button" data-toggle="collapse" aria-expanded="false" aria-controls="release-meta" data-target="#release-meta">show</a>
+  </div>
+  <div  id="release-meta" class="panel-body collapse">
+<dl class="dl-horizontal meta-list">
+  <dt>ID Number</dt>   <dd>{{model.id}}</dd>
+  <dt>Artist</dt>      <dd>{{model.artist}}</dd>
+  <dt>Title</dt>       <dd>{{model.title}}</dd>
+  <dt>Release Year</dt><dd>{{model.year}}</dd>
+  <dt>Genre</dt>       <dd>{{model.genre}}</dd>
+  <dt>Company</dt>     <dd>{{model.company}}</dd>
+  <dt>Country</dt>     <dd>{{model.cpa}}</dd>
+  <dt>Arrival Date</dt><dd>{{pretty-date model.arrivaldate}}</dd>
+  <dt>Format</dt>      <dd>{{model.format}}</dd>
+  <dt>Compilation</dt> <dd>{{model.isLocal}}</dd>
+  <dt>Demo</dt>        <dd>{{model.isDemo}}</dd>
+  <dt>Local</dt>       <dd>{{model.isLocal}}</dd>
+  <dt>Female</dt>      <dd>{{model.isFemale}}</dd>
+  <dt>Created by</dt>  <dd>{{model.id}}</dd>
+</dl>
+</div>
+</div>
+
+
+<h2>Tracks</h2>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th>Track</th>
+        <th>Title</th>
+        <th>Length</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each model.tracks as |track|}}
+      <tr>
+            <td>{{track.tracknum}}</td>
+            <td>{{track.tracktitle}}</td>
+            <td>{{format-seconds track.tracklength}}</td>
+        </tr>
+    {{/each}}
+  </tbody>
+</table>
+

@@ -36,3 +36,8 @@ button.btn-playlist-add {
 {
     font-size: 87px;
 }
+
+
+.meta-list {
+  column-count: 2;
+}

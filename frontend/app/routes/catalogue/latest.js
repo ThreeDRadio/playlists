@@ -14,5 +14,12 @@ export default Ember.Route.extend({
                                 now.getDate());
     console.log(twoMonthsAgo);
     return this.store.query('release', {ordering: '-arrivaldate,artist,title', min_arrival: moment(twoMonthsAgo).format('YYYY-MM-DD')});
+  },
+
+  actions: {
+    gotoRelease(release) {
+      console.log(release);
+      this.transitionTo('catalogue.release', release);
+    }
   }
 });
