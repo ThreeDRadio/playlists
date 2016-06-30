@@ -4,9 +4,10 @@ import attr from 'ember-data/attr';
 
 export default Model.extend({
   
-  title: attr('string'),
-  artist: attr('string'),
-  duration: attr('number'),
+  tracknum: attr('number'),
+  tracktitle: attr('string'),
+  trackartist: attr('string'),
+  tracklength: attr('number'),
 
   release: belongsTo('release')
 
