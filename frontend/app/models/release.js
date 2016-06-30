@@ -12,14 +12,42 @@ export default Model.extend({
   cpa: attr('string'),
   arrivaldate: attr('date'),
 
-  local: attr('boolean'),
-  demo: attr('boolean'),
-  female: attr('boolean'),
-  compilation: attr('boolean'),
+  local: attr('number'),
+  demo: attr('number'),
+  female: attr('number'),
+  compilation: attr('number'),
 
   owner: attr('string'),
   timestamp: attr('date'),
 
-  tracks: hasMany('track', {inverse: 'release'})
+  tracks: hasMany('track', {inverse: 'release'}),
+
+  isLocal: Ember.computed('local', function() {
+    if (this.get('local') == 1) {
+      return false;
+    }
+    else if (this.get('local') == 2) {
+      return 'Local';
+    }
+    else if (this.get('local') == 3) {
+      return 'Some Local';
+    }
+  }),
+
+  isFemale: Ember.computed('female', function() {
+    if (this.get('female') == 1) {
+      return false;
+    }
+    else if (this.get('female') == 2) {
+      return 'Female';
+    }
+    else if (this.get('female') == 3) {
+      return 'Some Female';
+    }
+  }),
+
+  isCompilation: Ember.computed('compilation', function() {
+    return this.get('compilation') != 1;
+  })
   
 });
