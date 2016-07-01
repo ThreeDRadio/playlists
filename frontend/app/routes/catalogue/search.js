@@ -1,18 +1,11 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
-  queryParams: {
-    page: {
-      refreshModel: true
-    },
-    search: {
-      refreshModel: true
-    }
-  }, 
+
+  searchQuery: '',
 
   model(params) {
     if (Ember.isPresent(params.search)) {
-      console.log("search");
       let queryParams = {
         ordering: 'artist',         
         search: params.search,
@@ -22,10 +15,4 @@ export default Ember.Route.extend({
     }
   },
 
-  actions: {
-    quickSearch(params) {
-      console.log("Searching: " + params);
-      this.transitionTo({queryParams: {search: params}});
-    }
-  }
 });
