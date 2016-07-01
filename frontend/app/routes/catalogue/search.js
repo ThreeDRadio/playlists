@@ -9,8 +9,10 @@ export default Ember.Route.extend({
       let queryParams = {
         ordering: 'artist',         
         search: params.search,
-        page: params.page
       };
+      if (Ember.isPresent(params.page)) {
+        queryParams.page = params.page
+      }
       return this.store.query('release', queryParams);
     }
   },
