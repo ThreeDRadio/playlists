@@ -52,3 +52,8 @@ button.btn-playlist-add {
 .quick-search-bar {
   width: 500px;
 }
+
+.release-list tbody tr {
+  cursor: pointer;
+}
+
