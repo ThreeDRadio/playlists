@@ -3,7 +3,7 @@
   {{#if session.isAuthenticated }}
   <h4><span class="glyphicon glyphicon-music"></span> Catalogue</h4>
   <ul class="nav nav-sidebar">
-    <li>{{#link-to 'catalogue.search'}}Quick Search{{/link-to}}</li>
+    <li>{{#link-to 'catalogue.search' (query-params page='null' search='null')}}Quick Search{{/link-to}}</li>
     <li><a href="#">Advanced Search</a></li>
     <li>{{#link-to 'catalogue.latest' (query-params page=1)}}New Releases{{/link-to}}</li>
     <li><a href="#">Create Entry</a></li>
