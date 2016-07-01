@@ -1,8 +1,21 @@
 import Ember from 'ember';
 
 export default Ember.Route.extend({
+  queryParams: {
+    page: {
+      refreshModel: true
+    },
+    search: {
+      refreshModel: true
+    }
+  }, 
 
-  searchQuery: '',
+  afterModel() {
+    window.scrollTo(0,0);
+  },
+
+  search: '',
+  page: 1,
 
   model(params) {
     if (Ember.isPresent(params.search)) {
@@ -14,6 +27,18 @@ export default Ember.Route.extend({
         queryParams.page = params.page
       }
       return this.store.query('release', queryParams);
+    }
+    else {
+      return null;
+    }
+  },
+  actions: {
+    loading(transition, originRoute) {
+      let controller = this.controllerFor('catalogue.search');
+      controller.set('currentlyLoading', true);
+      transition.promise.finally(function() {
+        controller.set('currentlyLoading', false);
+      });
     }
   },
 

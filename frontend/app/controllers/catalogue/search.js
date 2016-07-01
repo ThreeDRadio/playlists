@@ -1,16 +1,16 @@
 import Ember from 'ember';
 
 export default Ember.Controller.extend({
-  queryParams: {
-    page: {
-      refreshModel: true
-    },
-    search: {
-      refreshModel: true
-    }
-  }, 
-  page: null,
-  search: null,
+
+  page: 1,
+  search: '',
+
+  isFirstPage: function() {
+    return this.get('model').meta.previous == null;
+  },
+  isLastPage: function() {
+    return this.get('model').meta.next == null;
+  },
 
   actions: {
     gotoRelease(release) {
