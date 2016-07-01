@@ -5,9 +5,33 @@ export default Ember.Route.extend({
     page: {
       refreshModel: true
     },
-    search: {
+    artist: {
       refreshModel: true
-    }
+    },
+    track: {
+      refreshModel: true
+    },
+    release: {
+      refreshModel: true
+    },
+    country: {
+      refreshModel: true
+    },
+    year: {
+      refreshModel: true
+    },
+    local: {
+      refreshModel: true
+    },
+    demo: {
+      refreshModel: true
+    },
+    compilation: {
+      refreshModel: true
+    },
+    female: {
+      refreshModel: true
+    },
   }, 
 
   afterModel() {
@@ -18,24 +42,18 @@ export default Ember.Route.extend({
   page: 1,
 
   model(params) {
-    this.controllerFor('catalogue.search').set('searchQuery', params.search);
-    if (Ember.isPresent(params.search)) {
-      let queryParams = {
-        ordering: 'artist',         
-        search: params.search,
-      };
-      if (Ember.isPresent(params.page)) {
-        queryParams.page = params.page
-      }
-      return this.store.query('release', queryParams);
-    }
-    else {
-      return null;
-    }
+    console.log(params);
+    this.controllerFor('catalogue.advanced-search').set('artist', params.artist);
+    this.controllerFor('catalogue.advanced-search').set('title', params.track);
+    this.controllerFor('catalogue.advanced-search').set('album', params.release);
+
+    params.ordering = 'artist';
+    return this.store.query('release', params);
+    return null;
   },
   actions: {
     loading(transition, originRoute) {
-      let controller = this.controllerFor('catalogue.search');
+      let controller = this.controllerFor('catalogue.advanced-search');
       controller.set('currentlyLoading', true);
       transition.promise.finally(function() {
         controller.set('currentlyLoading', false);
