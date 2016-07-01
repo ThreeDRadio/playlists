@@ -1,0 +1,77 @@
+<h1 class="page-header">Search</h1>
+
+<div class="row">
+
+  <div class="container " id="advanced_search">
+
+    <form class="form-horizontal">
+      <div class="form-group">
+        <label for="artist" class="col-sm-2 control-label">Artist</label>
+        <div class="col-sm-8">
+          {{input type="text" id="artist" value=artist placeholder="Artist" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="track" class="col-sm-2 control-label">Song Title</label>
+        <div class="col-sm-8">
+          {{input type="text" id="track" value=track placeholder="Track" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="release" class="col-sm-2 control-label">Album Title</label>
+        <div class="col-sm-8">
+          {{input type="text" id="album" value=album placeholder="Album" class="form-control"}}
+        </div>
+      </div>
+      <div class="form-group">
+        <p class="col-sm-2 control-label"><strong>Attributes</strong></p>
+        <div class="col-sm-8">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Local
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Female 
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Compilation
+          </label>
+          <label class="checkbox-inline">
+            <input type="checkbox" id="female" value="female">Demo
+          </label>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>
+
+<div class="row">
+  <h2>Results {{#if model.meta}}<small>({{model.meta.count}})</small>{{/if}}</h2>
+  {{#if currentlyLoading}}
+
+  <h4><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Searching...</h4>
+
+  {{else}}
+
+  {{#if model.meta.count}}
+  {{release-list releaseSelected=(action 'gotoRelease') model=model}}
+
+  <nav>
+  <ul class="pager">
+    {{#if model.meta.previous}}
+    <li>{{#link-to (query-params page=model.meta.previous)}}Previous Page{{/link-to}}</li>
+    {{else}}
+    <li class="disabled"><span>Previous Page</span></li>
+    {{/if}}
+    {{#if model.meta.next}}
+    <li>{{#link-to (query-params page=model.meta.next)}}Next Page{{/link-to}}</li>
+    {{else}}
+    <li class="disabled"><span>Next Page</span></li>
+    {{/if}}
+  </ul>
+  </nav>
+  {{/if}}
+  {{/if}}
+
+</div>
+
