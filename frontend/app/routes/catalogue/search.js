@@ -18,6 +18,7 @@ export default Ember.Route.extend({
   page: 1,
 
   model(params) {
+    this.controllerFor('catalogue.search').set('searchQuery', params.search);
     if (Ember.isPresent(params.search)) {
       let queryParams = {
         ordering: 'artist',         
