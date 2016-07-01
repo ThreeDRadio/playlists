@@ -13,7 +13,13 @@ export default Ember.Route.extend({
                                 now.getMonth() - 2, 
                                 now.getDate());
 
-    return this.store.query('release', {ordering: '-arrivaldate,artist,title', min_arrival: moment(twoMonthsAgo).format('YYYY-MM-DD')});
+    let queryParams = {
+      ordering: '-arrivaldate,artist,title',         
+      min_arrival: moment(twoMonthsAgo).format('YYYY-MM-DD'),
+      page: params.page
+    };
+
+    return this.store.query('release', queryParams);
   },
 
 });

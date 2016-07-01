@@ -10,17 +10,13 @@ export default Ember.Controller.extend({
 
   page: 1,
 
-  nextPage: function() {
-    return this.get('page') + 1;
-  }.property('page'),
-
-  prevPage: function() {
-    return this.get('page') - 1;
-  }.property('page'),
-
   isFirstPage: function() {
-    return this.get('page') === 1;
-  }.property('page'),
+    return this.get('model').meta.previous == null;
+  }
+  isLastPage: function() {
+    return this.get('model').meta.next == null;
+  }
+
 
   actions: {
     gotoRelease(release) {

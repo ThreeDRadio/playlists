@@ -1,3 +1,18 @@
 <h1 class="page-header">New Releases</h1>
 
 {{release-list releaseSelected=(action 'gotoRelease') model=model}}
+<nav>
+  <ul class="pager">
+    {{#if model.meta.previous}}
+    <li>{{#link-to 'catalogue.latest' (query-params page=model.meta.previous)}}Previous Page{{/link-to}}</li>
+    {{else}}
+    <li class="disabled"><span>Previous Page</span></li>
+    {{/if}}
+    {{#if model.meta.next}}
+    <li>{{#link-to 'catalogue.latest' (query-params page=model.meta.next)}}Next Page{{/link-to}}</li>
+    {{else}}
+    <li class="disabled"><span>Next Page</span></li>
+    {{/if}}
+  </ul>
+</nav>
+
