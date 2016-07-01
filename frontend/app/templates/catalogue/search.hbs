@@ -6,7 +6,7 @@
       <div class="form-group form-horizontal">
         <label for="quicksearch" class="col-sm-2 control-label">Quick Search</label>
         <div class="col-sm-7">
-          {{input type="text" id="quicksearch" value=searchQuery insert-newline="quickSearch" placeholder="search artist, album, or track" class="form-control"}}
+          {{input type="text" id="quicksearch" value=searchQuery action="quickSearch" placeholder="search artist, album, or track" class="form-control"}}
         </div>
         <div class="col-sm-1">
           <button class="btn btn-default">Submit</button>
@@ -60,30 +60,25 @@
   {{/if}}
 </div>
 
+{{#if model}}
 <div class="row">
+  <h2>Results <small>({{model.meta.count}})</small></h2>
 
-  <h2>Results</h2>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h3 class="panel-title">Results {{count}}</h3>
-    </div>
-    <div class="panel-body">
-      <nav>
-      <ul class="pager">
+  {{release-list releaseSelected=(action 'gotoRelease') model=model}}
+  <nav>
+  <ul class="pager">
 
-        {{#if isFirstPage}}
-        <li class="disabled"><a>Previous</a></li>
-        {{else}}
-        <li>{{#link-to (query-params page=prevPage)}}Previous{{/link-to}}</li>
-        {{/if}}
-        {{#if isLastPage}}
-        <li class="disabled"><a>Next</a></li>
-        {{else}}
-        <li>{{#link-to (query-params page=nextPage)}}Next{{/link-to}}</li>
-        {{/if}}
-      </ul>
-      </nav>
-
-    </div>
-  </div>
+    {{#if isFirstPage}}
+    <li class="disabled"><a>Previous</a></li>
+    {{else}}
+    <li>{{#link-to (query-params page=prevPage)}}Previous{{/link-to}}</li>
+    {{/if}}
+    {{#if isLastPage}}
+    <li class="disabled"><a>Next</a></li>
+    {{else}}
+    <li>{{#link-to (query-params page=nextPage)}}Next{{/link-to}}</li>
+    {{/if}}
+  </ul>
+  </nav>
 </div>
+{{/if}}
