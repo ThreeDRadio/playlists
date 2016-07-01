@@ -22,4 +22,8 @@ export default Ember.Route.extend({
     return this.store.query('release', queryParams);
   },
 
+  afterModel() {
+    window.scrollTo(0,0);
+  }
+
 });
