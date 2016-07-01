@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     {{#each model as |release|}}
-      <tr {{action 'gotoRelease' release}}>
+      <tr {{action 'releaseSelected' release}}>
             <td>{{pretty-date release.arrivaldate}}</td>
             <td>{{release.artist}}</td>
             <td>{{release.title}}</td>
