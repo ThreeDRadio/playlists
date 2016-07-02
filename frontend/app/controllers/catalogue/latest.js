@@ -15,7 +15,7 @@ export default Ember.Controller.extend({
   },
   isLastPage: function() {
     return this.get('model').meta.next == null;
-  }
+  },
 
 
   actions: {

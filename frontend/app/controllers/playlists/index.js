@@ -10,7 +10,7 @@ export default Ember.Controller.extend({
 
   isFirstPage: function() {
     return this.model.meta.previous == null;
-  }
+  },
 
   isLastPage: function() {
     return this.get('model').meta.next == null;
