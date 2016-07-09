@@ -11,7 +11,7 @@ export default Ember.Controller.extend({
 
   artist: '',
   track: '',
-  album: '',
+  release: '',
   country: '',
   year: '',
 
@@ -31,7 +31,7 @@ export default Ember.Controller.extend({
     gotoRelease(release) {
       this.transitionToRoute('catalogue.release', release);
     },
-    search(params) {
+    search() {
       this.set('artist', '');
       this.set('track', '');
       this.set('album', '');
@@ -44,30 +44,39 @@ export default Ember.Controller.extend({
       this.set('demo', '');
 
       let searchParams = {};
-      if (this.get('artistIn').length > 0)
+      if (this.get('artistIn').length > 0) {
         searchParams.artist= this.get('artistIn');
-        
-      if (this.get('trackIn').length > 0)
+      }
+
+      if (this.get('trackIn').length > 0) {
         searchParams.track= this.get('trackIn');
+      }
 
-      if (this.get('albumIn').length > 0)
+      if (this.get('albumIn').length > 0) {
         searchParams.release= this.get('albumIn');
+      }
 
-      if (this.get('countryIn').length > 0)
+      if (this.get('countryIn').length > 0) {
         searchParams.country= this.get('countryIn');
+      }
 
-      if (this.get('yearIn').length > 0)
+      if (this.get('yearIn').length > 0) {
         searchParams.year= this.get('yearIn');
+      }
 
 
-      if (this.get('localIn'))
+      if (this.get('localIn')) {
         searchParams.local = 2;
-      if (this.get('femaleIn'))
+      }
+      if (this.get('femaleIn')) {
         searchParams.female = 2;
-      if (this.get('demoIn'))
-        searchParams.demo = 2;
-      if (this.get('compilationIn'))
+      }
+      if (this.get('demoIn')) {
+        searchParams.demo = 1;
+      }
+      if (this.get('compilationIn')) {
         searchParams.compilation = 2;
+      }
 
       console.log(searchParams);
       this.transitionToRoute({queryParams: searchParams});

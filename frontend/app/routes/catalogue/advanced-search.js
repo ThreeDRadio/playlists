@@ -43,12 +43,22 @@ export default Ember.Route.extend({
 
   model(params) {
     console.log(params);
-    this.controllerFor('catalogue.advanced-search').set('artist', params.artist);
-    this.controllerFor('catalogue.advanced-search').set('title', params.track);
-    this.controllerFor('catalogue.advanced-search').set('album', params.release);
+    this.controllerFor('catalogue.advanced-search').set('artistIn', params.artist);
+    this.controllerFor('catalogue.advanced-search').set('titleIn', params.track);
+    this.controllerFor('catalogue.advanced-search').set('albumIn', params.release);
+    this.controllerFor('catalogue.advanced-search').set('yearIn', params.year);
+    this.controllerFor('catalogue.advanced-search').set('countryIn', params.country);
+    this.controllerFor('catalogue.advanced-search').set('localIn', params.local !== '');
+    this.controllerFor('catalogue.advanced-search').set('femaleIn', params.female!== '');
+    this.controllerFor('catalogue.advanced-search').set('demoIn', params.demo!== '');
+    this.controllerFor('catalogue.advanced-search').set('compilationIn', params.compilation !== '');
 
     params.ordering = 'artist';
-    return this.store.query('release', params);
+    if (params.artist || params.track || params.release ||
+        params.year || params.country || params.local ||
+        params.female || params.compilation) {
+      return this.store.query('release', params);
+    }
     return null;
   },
   actions: {
