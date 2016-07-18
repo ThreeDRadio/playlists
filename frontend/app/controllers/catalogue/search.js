@@ -16,7 +16,7 @@ export default Ember.Controller.extend({
     gotoRelease(release) {
       this.transitionToRoute('catalogue.release', release);
     },
-    quickSearch(params) {
+    quickSearch() {
       this.transitionToRoute({queryParams: {search: this.get('searchQuery')}});
     }
   }

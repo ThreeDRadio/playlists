@@ -62,7 +62,7 @@ export default Ember.Route.extend({
     return null;
   },
   actions: {
-    loading(transition, originRoute) {
+    loading(transition) {
       let controller = this.controllerFor('catalogue.advanced-search');
       controller.set('currentlyLoading', true);
       transition.promise.finally(function() {
