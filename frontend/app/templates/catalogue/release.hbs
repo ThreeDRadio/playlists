@@ -34,7 +34,9 @@
         <th>Artist</th>
         <th>Title</th>
         <th>Length</th>
+        {{!
         <th align="center">Stream</th>
+        !}}
         <th align="center">Download</th>
     </tr>
   </thead>
@@ -49,8 +51,10 @@
             {{/if}}
             <td>{{track.tracktitle}}</td>
             <td>{{format-seconds track.tracklength}}</td>
+            {{!
             <td align="center"><span class="glyphicon glyphicon-play"></span></td>
-            <td align="center"><span class="glyphicon glyphicon-download"></span></td>
+            !}}
+            <td align="center">{{track-download track=track}}</td>
         </tr>
     {{/each}}
   </tbody>
