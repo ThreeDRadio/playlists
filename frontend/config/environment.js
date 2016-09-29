@@ -25,8 +25,8 @@ module.exports = function(environment) {
       ENV['ember-cli-mirage'] = {
           enabled: false 
             }
-    ENV.APP.LOG_TRANSITIONS = true;
-    ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
+    //ENV.APP.LOG_TRANSITIONS = true;
+    //ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     //ENV.APP.API_HOST = 'http://192.168.1.64:8000';
     ENV.APP.API_HOST = 'http://localhost:8000';
@@ -35,7 +35,7 @@ module.exports = function(environment) {
         authorizer: 'authorizer:django-rest',
         serverTokenEndpoint: 'http://localhost:8000/api-token-auth/',
         crossOriginWhitelist: ['http://localhost:8000']
-        };
+    };
   }
 
   if (environment === 'test') {
